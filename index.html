@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Carnatic Vocal Debut Concert — Audience Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B87333;
+    --gold-mid: #D4975A;
+    --gold-light: #E8C98A;
+    --gold-pale: #FBF5E8;
+    --rust: #8B3A1A;
+    --rust-dark: #6B2A10;
+    --ink: #1A1208;
+    --muted: #6B5B45;
+    --border: rgba(184,115,51,0.20);
+    --bg: #FEFCF7;
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── TOP NAV ── */
+  .topnav {
+    background: var(--rust-dark);
+    padding: 0.6rem 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topnav a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .topnav a:hover { background: rgba(255,255,255,0.12); }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 780px; margin: 0 auto; padding: 0 1rem 4rem; }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    text-align: center;
+    padding: 2.5rem 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+  .ornament { font-size: 18px; color: var(--gold); letter-spacing: 8px; display: block; margin-bottom: 0.7rem; }
+  .masthead h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 300;
+    color: var(--rust);
+    line-height: 1.15;
+    letter-spacing: 1px;
+  }
+  .masthead .sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* ── INTRO BOX ── */
+  .intro-box {
+    background: var(--gold-pale);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.2rem;
+    margin-bottom: 2.5rem;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .intro-box strong { color: var(--rust); font-weight: 500; }
+
+  /* ── SECTION HEADING ── */
+  .sec-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 400;
+    color: var(--rust);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.4rem;
+    margin: 2.5rem 0 1.3rem;
+    letter-spacing: 0.5px;
+  }
+  .sec-title a { color: inherit; }
+
+  /* ── WHAT TO LISTEN ── */
+  .listen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .listen-card {
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    background: var(--card);
+  }
+  .listen-card h4 {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--rust);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 5px;
+  }
+  .listen-card p { font-size: 12.5px; color: var(--muted); line-height: 1.65; }
+
+  /* ── TRINITY ── */
+  .trinity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .trinity-card {
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    background: var(--card);
+    text-align: center;
+  }
+  .trinity-card .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    color: var(--rust);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .trinity-card .detail { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── CONCERT ARC ── */
+  .arc-phase {
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--card);
+    margin-bottom: 10px;
+  }
+  .arc-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.8rem 1rem;
+    border-bottom: 0.5px solid var(--border);
+    background: var(--gold-pale);
+  }
+  .arc-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500; color: #fff; flex-shrink: 0;
+  }
+  .arc-header-title { font-size: 14px; font-weight: 500; color: var(--rust); flex: 1; }
+  .tag {
+    font-size: 10px; padding: 2px 8px; border-radius: 20px;
+    border: 0.5px solid var(--border); color: var(--muted);
+    background: #fff; white-space: nowrap;
+  }
+  .tag.req { border-color: var(--gold); color: var(--rust); }
+
+  .arc-rows { padding: 0; }
+  .arc-row {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 10px;
+    align-items: start;
+    padding: 0.65rem 1rem;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 13px;
+  }
+  .arc-row:last-child { border-bottom: none; }
+  .arc-sub-name { font-weight: 500; color: var(--ink); padding-top: 1px; }
+  .arc-sub-desc { color: var(--muted); line-height: 1.6; }
+  .tonight-tag {
+    font-size: 10px; color: #fff; background: var(--rust);
+    border-radius: 20px; padding: 2px 7px; white-space: nowrap;
+    align-self: flex-start; margin-top: 2px;
+  }
+  .tonight-tag.opt { background: var(--gold-mid); }
+
+  @media (max-width: 520px) {
+    .arc-row { grid-template-columns: 1fr; gap: 4px; }
+    .tonight-tag { width: fit-content; }
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+    border-left: 1.5px solid var(--border);
+  }
+  .tl-item { position: relative; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -35px; top: 17px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--bg);
+  }
+  .tl-item.main::before {
+    width: 15px; height: 15px;
+    left: -37px;
+    background: var(--rust);
+  }
+  .tl-header {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 0 4px;
+  }
+  .tl-num { font-size: 11px; font-weight: 500; color: var(--gold); min-width: 18px; padding-top: 2px; }
+  .tl-body { flex: 1; }
+  .tl-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 3.5vw, 19px);
+    font-weight: 400; color: var(--ink); line-height: 1.2;
+  }
+  .tl-meta { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .dur {
+    font-size: 10.5px; color: #fff; background: var(--gold);
+    border-radius: 20px; padding: 2px 9px; white-space: nowrap;
+    align-self: flex-start; margin-top: 3px;
+  }
+  .dur.main { background: var(--rust); }
+  .tl-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 5px; padding-bottom: 6px; }
+  .tl-desc strong { color: var(--rust); font-weight: 500; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; padding-bottom: 12px; }
+  .badge {
+    font-size: 10.5px; padding: 2px 9px; border-radius: 20px;
+    border: 0.5px solid var(--border); color: var(--muted);
+    background: var(--gold-pale);
+  }
+  .badge.h { border-color: var(--gold); color: var(--rust); background: #FBF0DC; }
+  .tl-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11.5px; color: var(--rust); text-decoration: none;
+    border: 0.5px solid var(--gold); border-radius: 20px;
+    padding: 3px 10px; margin-top: 6px; transition: background 0.2s;
+    background: var(--gold-pale);
+  }
+  .tl-link:hover { background: #F5E8C8; }
+  .tl-link svg { width: 12px; height: 12px; flex-shrink: 0; }
+  .divider { border: none; border-top: 1px dashed var(--border); margin: 0; }
+
+  /* ── GLOSSARY ── */
+  .gloss-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin-bottom: 2rem;
+  }
+  .gloss-item {
+    padding: 0.8rem 1rem;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+  }
+  .gloss-term { font-size: 13px; font-weight: 500; color: var(--rust); margin-bottom: 3px; }
+  .gloss-def { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── ETIQUETTE ── */
+  .etiq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 2rem; }
+  .etiq-row { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.65; color: var(--muted); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 7px; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem; margin-top: 3rem;
+    font-style: italic; letter-spacing: 0.3px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="Page sections">
+  <a href="#listen">What to Listen For</a>
+  <a href="#trinity">The Trinity</a>
+  <a href="#structure">Concert Structure</a>
+  <a href="#programme">Programme</a>
+  <a href="#glossary">Glossary</a>
+  <a href="#etiquette">Etiquette</a>
+</nav>
+
+<div class="page">
+
+  <div class="masthead">
+    <span class="ornament">✦ ✦ ✦</span>
+    <h1>A Carnatic Vocal Debut Concert</h1>
+    <div class="sub">Audience Guide &amp; Programme Notes</div>
+  </div>
+
+  <div class="intro-box">
+    <strong>Welcome.</strong> A Carnatic debut concert — called an <strong>Arangetram</strong> — is one of the most significant milestones in a classical musician's life. After years of intensive, personal training under a Guru, a student ascends the stage for the very first time to present a full, structured concert. Tonight's programme spans invocations, devotional poetry, rhythmic virtuosity, and a centrepiece improvisation — offering something to move both the seasoned scholar and the first-time listener.
+  </div>
+
+  <!-- WHAT TO LISTEN FOR -->
+  <h2 class="sec-title" id="listen">What to listen for</h2>
+  <div class="listen-grid">
+    <div class="listen-card">
+      <h4>Ragam</h4>
+      <p>The melodic framework — each with its own scale, ornamentation rules, and emotional identity. Every ragam has a distinct mood: majestic, longing, peaceful, or bright.</p>
+    </div>
+    <div class="listen-card">
+      <h4>Talam</h4>
+      <p>The rhythmic cycle. Adi (8 beats) is the most common. Listeners often mark the beat by tapping the thigh. Notice how everything resolves at beat 1 (the sam).</p>
+    </div>
+    <div class="listen-card">
+      <h4>Improvisation</h4>
+      <p>Carnatic music is partly composed, partly improvised. The alapanai, neraval, and swarams are all live creative acts — the composition is just the anchor.</p>
+    </div>
+    <div class="listen-card">
+      <h4>Violin dialogue</h4>
+      <p>The violinist shadows and responds to the vocalist in real time. During alapanai, each takes a turn "painting" the ragam. Watch for the eye-contact and give-and-take.</p>
+    </div>
+    <div class="listen-card">
+      <h4>Bhava</h4>
+      <p>Emotional expression. Beyond technique, the finest moments carry deep feeling — devotion, longing, surrender, joy. Let yourself respond to the mood, not just the melody.</p>
+    </div>
+    <div class="listen-card">
+      <h4>Swarams</h4>
+      <p>Passages in solfège syllables (sa ri ga ma pa da ni). These are melodic phrases — not abstract notes — carrying as much emotion as the lyrics themselves.</p>
+    </div>
+  </div>
+
+  <!-- HOLY TRINITY -->
+  <h2 class="sec-title" id="trinity">The Holy Trinity of Carnatic music</h2>
+  <div class="trinity-grid">
+    <div class="trinity-card">
+      <div class="name">St. Thyagaraja</div>
+      <div class="detail">1767–1847 · Telugu saint-composer. Deeply personal devotion to Lord Rama. 700+ compositions survive. The Pancharatna Krithis are sung en masse at festivals worldwide. Three pieces tonight.</div>
+    </div>
+    <div class="trinity-card">
+      <div class="name">Mutthuswami Dikshitar</div>
+      <div class="detail">1775–1835 · Sanskrit scholar-composer. Mastered Vedic, tantric, and folk traditions. Famous for the Navagraha series and Kamalamba Navavarana. Two pieces tonight.</div>
+    </div>
+    <div class="trinity-card">
+      <div class="name">Syama Sastri</div>
+      <div class="detail">1762–1827 · The third of the Trinity. Fewer compositions but of extraordinary emotional depth. All three were contemporaries in the same region — a golden era for the art form.</div>
+    </div>
+  </div>
+
+  <!-- CONCERT STRUCTURE -->
+  <h2 class="sec-title" id="structure">How a Carnatic concert is structured</h2>
+  <p style="font-size:13.5px; color:var(--muted); line-height:1.8; margin-bottom:1.2rem;">A full Carnatic concert follows a time-honoured arc — opening with technical rigour, building to improvisatory depth, then releasing into devotional warmth. Some sections are essential at every concert; others appear at the performer's discretion. Tonight's programme follows this arc closely.</p>
+
+  <div class="arc-phase">
+    <div class="arc-header">
+      <div class="arc-num">I</div>
+      <div class="arc-header-title">Invocation &amp; opening</div>
+      <span class="tag req">Essential</span>
+    </div>
+    <div class="arc-rows">
+      <div class="arc-row">
+        <div class="arc-sub-name">Ganesha prayer</div>
+        <div class="arc-sub-desc">Every concert opens with a salutation to Lord Ganesha, remover of obstacles. Tradition demands this before any auspicious undertaking.</div>
+        <span class="tonight-tag">Tonight: #2</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Varnam</div>
+        <div class="arc-sub-desc">The technical manifesto — a dense composition covering a ragam's full range of phrases, gamakams (ornaments), and rhythmic complexity. Warms up both performer and audience.</div>
+        <span class="tonight-tag">Tonight: #1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arc-phase">
+    <div class="arc-header">
+      <div class="arc-num">II</div>
+      <div class="arc-header-title">Krithis — building the repertoire</div>
+      <span class="tag req">Essential</span>
+    </div>
+    <div class="arc-rows">
+      <div class="arc-row">
+        <div class="arc-sub-name">Keerthanams / Krithis</div>
+        <div class="arc-sub-desc">A sequence of composed devotional pieces across various ragams and talams. Each has a pallavi (refrain), anupallavi (counter-theme), and charanam (verse). The sequence moves from grander ragams toward more introspective ones.</div>
+        <span class="tonight-tag">Tonight: #3–6</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Pancharatna Krithi</div>
+        <div class="arc-sub-desc">One of Thyagaraja's five "gem" compositions — an optional but prestigious inclusion, signalling classical seriousness.</div>
+        <span class="tonight-tag">Tonight: #3</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Thematic series (optional)</div>
+        <div class="arc-sub-desc">A piece from a larger compositional cycle (e.g. Dikshitar's nine-planet Navagraha series) shows the breadth of the performer's learning.</div>
+        <span class="tonight-tag">Tonight: #4</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arc-phase">
+    <div class="arc-header">
+      <div class="arc-num">III</div>
+      <div class="arc-header-title">Main piece — the heart of the concert</div>
+      <span class="tag req">Essential</span>
+    </div>
+    <div class="arc-rows">
+      <div class="arc-row">
+        <div class="arc-sub-name">Raga Alapanai</div>
+        <div class="arc-sub-desc">Free-form, percussion-free exploration of the main ragam. The performer "draws" the ragam in sound — its contours, characteristic phrases, emotional arc. The violinist then responds. This is the deepest act of musical portraiture in the tradition.</div>
+        <span class="tonight-tag">Tonight: Khambhoji</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Krithi (composed song)</div>
+        <div class="arc-sub-desc">The composed anchor at the centre of the main piece — around which all improvisation orbits.</div>
+        <span class="tonight-tag">O Rangashayee</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Neraval</div>
+        <div class="arc-sub-desc">Improvisation within a single line of the krithi. The melody expands and explores while staying within the syllabic rhythm of the chosen text. Demands both creativity and structural control.</div>
+        <span class="tonight-tag">Tonight: #7</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Kalpana Swaram</div>
+        <div class="arc-sub-desc">Improvised solfège passages that must land precisely on beat 1 (the sam) and re-enter the composition seamlessly. Vocalist and violinist trade passages; the mridangam intensifies. This is the technical climax.</div>
+        <span class="tonight-tag">Tonight: #7</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Tani Avartanam (optional)</div>
+        <div class="arc-sub-desc">A solo percussion showcase — the mridangist performs alone, exploring rhythmic possibilities. May also include ghatam (clay pot) or kanjira. A concert within the concert.</div>
+        <span class="tonight-tag opt">Optional tonight</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arc-phase">
+    <div class="arc-header">
+      <div class="arc-num">IV</div>
+      <div class="arc-header-title">Post-main — devotional warmth</div>
+      <span class="tag req">Essential</span>
+    </div>
+    <div class="arc-rows">
+      <div class="arc-row">
+        <div class="arc-sub-name">Ragamalika krithis</div>
+        <div class="arc-sub-desc">After the intensity of the main piece, the concert softens. Ragamalika ("garland of ragams") compositions move through several ragams in one piece, offering colour and emotional variety.</div>
+        <span class="tonight-tag">Tonight: #8, 10, 13</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Viruttham (optional)</div>
+        <div class="arc-sub-desc">A verse set freely to ragam without percussion — pure melodic expression. Often introduced before a related krithi to set its emotional mood.</div>
+        <span class="tonight-tag">Tonight: #9</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Tamil / regional compositions</div>
+        <div class="arc-sub-desc">Devotional songs in Tamil, Telugu, or Kannada from the bhakti tradition. Language accessibility makes these emotionally immediate for many listeners.</div>
+        <span class="tonight-tag">Tonight: #5, 10, 12, 15, 16</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arc-phase">
+    <div class="arc-header">
+      <div class="arc-num">V</div>
+      <div class="arc-header-title">Closing — rhythm and benediction</div>
+      <span class="tag req">Essential</span>
+    </div>
+    <div class="arc-rows">
+      <div class="arc-row">
+        <div class="arc-sub-name">Thillana</div>
+        <div class="arc-sub-desc">A rhythmically exhilarating piece built primarily on abstract syllables (jathi). The concert's sprint to the finish — showcasing speed, precision, and a final dialogue between voice and mridangam.</div>
+        <span class="tonight-tag">Tonight: #14</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Thiruppugazh / devotional close (optional)</div>
+        <div class="arc-sub-desc">A devotional piece in complex talam — Arunagirinathar's verses are uniquely revered for their intricate asymmetric metres and Shaiva-Shakta devotion.</div>
+        <span class="tonight-tag">Tonight: #15</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Divya Prabandham (optional)</div>
+        <div class="arc-sub-desc">Vaishnava scripture set to music — a deeply traditional closing gesture linking the concert to the ancient Tamil devotional canon of the Azhwar saints.</div>
+        <span class="tonight-tag">Tonight: #16</span>
+      </div>
+      <div class="arc-row">
+        <div class="arc-sub-name">Mangalam</div>
+        <div class="arc-sub-desc">The auspicious benediction that closes every concert. Short, gentle, and final. When the Mangalam begins, the concert has found its resting place.</div>
+        <span class="tonight-tag">Tonight: #17</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRAMME -->
+  <h2 class="sec-title" id="programme">Tonight's programme <span style="font-size:16px; font-weight:300; font-family:'Outfit',sans-serif;">(approx. 3 hours)</span></h2>
+  <p style="font-size:12.5px; color:var(--muted); margin-bottom:1.2rem; line-height:1.7;">Tap <strong style="color:var(--rust)">Lyrics &amp; Meaning</strong> on any piece to open its lyrics in a new tab.</p>
+
+  <div class="timeline">
+
+    <!-- 1 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">1</div>
+        <div class="tl-body">
+          <div class="tl-name">Varnam — Viriboni</div>
+          <div class="tl-meta">Bhairavi · Ata talam · Pacchimiriyam Adiyappa</div>
+        </div>
+        <div class="dur">~12 min</div>
+      </div>
+      <div class="tl-desc">
+        The opening declaration. A varnam demonstrates complete command of the ragam before the concert deepens. Bhairavi is one of Carnatic music's most beloved and emotive ragams — soulful, yearning, and rich. Ata talam has a long 14-beat cycle. This piece expresses the heroine Viriboni's devotion (shringaara rasa) for Lord Rajagopala of Tanjapuri through a floral metaphor.
+        <div class="badge-row">
+          <span class="badge h">Sets the emotional tone — Bhairavi's characteristic yearning</span>
+          <span class="badge">Dense swarams — listen for speed and melodic precision</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c0729.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 2 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">2</div>
+        <div class="tl-body">
+          <div class="tl-name">Sri Maha Ganapathi Ravathumam</div>
+          <div class="tl-meta">Gowlai · Misra Chapu · Mutthuswami Dikshitar</div>
+        </div>
+        <div class="dur">~8 min</div>
+      </div>
+      <div class="tl-desc">
+        A prayer to Lord Ganesha — tradition demands this at the opening of every concert. Dikshitar's compositions are celebrated for Sanskrit poetry and melodic sophistication. The piece describes Ganesha of the Kamalalaya temple-tank in Tiruvarur, venerated by Vishnu, Brahma, and Indra. Watch for the chittai swaram — a passage weaving rhythmic syllables (jathi) with swarams, increasing rhythmic complexity.
+        <div class="badge-row">
+          <span class="badge">Devotional invocation to Ganesha</span>
+          <span class="badge h">Chittai swaram — rhythmically intricate interlude</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c3577.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 3 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">3</div>
+        <div class="tl-body">
+          <div class="tl-name">Jagadanandhakaraka</div>
+          <div class="tl-meta">Naatai · Adi talam · St. Thyagaraja</div>
+        </div>
+        <div class="dur">~10 min</div>
+      </div>
+      <div class="tl-desc">
+        The first of the five Pancharatna Krithis — compositions considered cornerstones of the Carnatic repertoire, performed en masse at annual Thyagaraja festivals. This Sanskrit krithi lists 108 names of Lord Rama, praises him as bestower of joy to the universe, and is set in Naatai — a powerful, majestic ragam. The melody opens boldly and expansively; Naatai does not whisper.
+        <div class="badge-row">
+          <span class="badge h">Pancharatna Krithi — among the greatest Carnatic compositions</span>
+          <span class="badge">108 names of Lord Rama embedded in the lyrics</span>
+          <span class="badge">Grand, expansive Naatai ragam</span>
+        </div>
+        <a class="tl-link" href="https://karnatik.com/c31052.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 4 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">4</div>
+        <div class="tl-body">
+          <div class="tl-name">Sooryamurthe</div>
+          <div class="tl-meta">Sowrastram · Dhruva talam · Mutthuswami Dikshitar</div>
+        </div>
+        <div class="dur">~7 min</div>
+      </div>
+      <div class="tl-desc">
+        The first of Dikshitar's nine Navagraha Krithis, dedicated to Surya, the Sun God. Dhruva talam (14 beats) is stately and measured — matching Surya's majestic presence. The composition praises his radiance, his divine consort Chaya, and his role as crest-jewel among all the planets. Dikshitar's composer signature (mudra "Guruguha") is woven into the lyrics itself.
+        <div class="badge-row">
+          <span class="badge">First of the nine Navagraha Krithis</span>
+          <span class="badge">Stately Dhruva talam (14 beats)</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c1191.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 5 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">5</div>
+        <div class="tl-body">
+          <div class="tl-name">Kaa Vaa Vaa</div>
+          <div class="tl-meta">Varali · Adi talam · Papanasam Shivan</div>
+        </div>
+        <div class="dur">~8 min</div>
+      </div>
+      <div class="tl-desc">
+        A Tamil invocation to Lord Muruga — "come, come, come and protect." Varali is a ragam of intense longing and haunting beauty. Papanasam Shivan, revered as the "Tamil Thyagaraja," layers up Muruga's names — Khanda, Shanmuka, Pazhani dweller — in a breathless outpouring. The petition asks him to be shade against longing's scorching rays and community Guru.
+        <div class="badge-row">
+          <span class="badge h">Varali — a ragam of deep, beautiful longing</span>
+          <span class="badge">Tamil devotional — accessible and emotive</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c1124.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 6 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">6</div>
+        <div class="tl-body">
+          <div class="tl-name">Raghuvamsa Sudha</div>
+          <div class="tl-meta">Kathanakuthoohalam · Adi talam · St. Thyagaraja</div>
+        </div>
+        <div class="dur">~7 min</div>
+      </div>
+      <div class="tl-desc">
+        Thyagaraja lists Rama's glories: moon of the Raghu lineage, lion to asura kings, destroyer of Parasurama's pride, jewel of the solar dynasty, Lord Venkateshwara incarnate. Kathanakuthoohalam means "eagerness to narrate wonders" — the ragam is vigorous, narrative, and energising. This piece builds momentum as the concert moves toward its centrepiece.
+        <div class="badge-row">
+          <span class="badge h">Kathanakuthoohalam — vigorous, storytelling character</span>
+          <span class="badge">Building energy before the main piece</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c4025.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 7 MAIN -->
+    <div class="tl-item main">
+      <div class="tl-header">
+        <div class="tl-num">7</div>
+        <div class="tl-body">
+          <div class="tl-name">O Rangashayee — Main Piece</div>
+          <div class="tl-meta">Khambhoji · Adi talam · St. Thyagaraja</div>
+        </div>
+        <div class="dur main">~40–50 min</div>
+      </div>
+      <div class="tl-desc">
+        <strong>The heart of the concert.</strong> Khambhoji is grand, romantic, and warm — one of the great ragams for a main piece. The performance unfolds in expanding layers:<br><br>
+        <strong>① Raga Alapanai</strong> — Percussion-free exploration of Khambhoji by the vocalist, then the violinist. The ragam is drawn in space, one phrase at a time — its ascending lines, its descent, its signature turns.<br><br>
+        <strong>② Krithi</strong> — Thyagaraja addresses Lord Ranganatha reclining at Sri Rangam: "When I call You sincerely, will You not appear? When will my suffering end among those who cannot bear another's joy?"<br><br>
+        <strong>③ Neraval</strong> — Melodic improvisation woven within a chosen line's syllabic rhythm.<br><br>
+        <strong>④ Kalpana Swaram</strong> — Improvised solfège passages exchanged between vocalist and violinist, each resolving precisely on beat 1. The mridangam joins in full force.
+        <div class="badge-row">
+          <span class="badge h">Full raga alapanai — vocalist and violinist</span>
+          <span class="badge h">Neraval improvisation</span>
+          <span class="badge h">Kalpana swaram exchange</span>
+          <span class="badge">Longest piece — savour every layer</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c31238.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 8 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">8</div>
+        <div class="tl-body">
+          <div class="tl-name">Enthamaathramuna</div>
+          <div class="tl-meta">Ragamalika · Misra Chapu · Annamacharya</div>
+        </div>
+        <div class="dur">~6 min</div>
+      </div>
+      <div class="tl-desc">
+        A gentle, philosophical piece by 15th-century poet-saint Annamacharya: God is whatever form the devotee's mind imagines — all paths converge at the same Supreme. A Ragamalika — the composition moves through multiple ragams. Listen for the subtle mood shift each time the ragam changes. After the intensity of the main piece, this settles the mind.
+        <div class="badge-row">
+          <span class="badge h">Ragamalika — multiple ragams in one piece</span>
+          <span class="badge">Peaceful, post-climax mood</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c0893.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 9 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">9</div>
+        <div class="tl-body">
+          <div class="tl-name">Om Namo Narayana (with Viruttham)</div>
+          <div class="tl-meta">Karnaranjani · Khanda Chapu · Ambujam Krishna</div>
+        </div>
+        <div class="dur">~8 min</div>
+      </div>
+      <div class="tl-desc">
+        Opens with a viruttham — Thirumangai Azhwar's verse "Kulam Tharum Selvam Thandhidum," set freely in ragam without percussion. The verse extols Narayana's name as surpassing even maternal grace. The krithi follows, describing Lord Guruvayurappan's beauty. Karnaranjani means "that which pleases the ear" — an intimate, lyrical ragam perfectly suited to devotional warmth.
+        <div class="badge-row">
+          <span class="badge h">Viruttham — free melodic verse, no talam, pure expression</span>
+          <span class="badge">Devotional Vaishnavism</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c16424.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 10 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">10</div>
+        <div class="tl-body">
+          <div class="tl-name">Kurai Ondrum Illai</div>
+          <div class="tl-meta">Ragamalika · Adi talam · Sri Rajagopalachari</div>
+        </div>
+        <div class="dur">~6 min</div>
+      </div>
+      <div class="tl-desc">
+        One of the most beloved Tamil devotional songs, composed by statesman and philosopher C. Rajagopalachari ("Rajaji") — popularised by M.S. Subbulakshmi at the UN in 1969. "I have no sorrow, no regret. Though I cannot see You, You are my sight and light." The simplicity of the lyric is its power. A Ragamalika spanning Sivaranjani, Kaapi, and Sindhu Bhairavi.
+        <div class="badge-row">
+          <span class="badge h">Iconic Tamil devotional — familiar to many in the hall</span>
+          <span class="badge">Ragamalika: Sivaranjani → Kaapi → Sindhu Bhairavi</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c1296.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 11 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">11</div>
+        <div class="tl-body">
+          <div class="tl-name">Madhava Mamava</div>
+          <div class="tl-meta">Neelambari · Adi talam · Narayana Theerthar</div>
+        </div>
+        <div class="dur">~7 min</div>
+      </div>
+      <div class="tl-desc">
+        Neelambari is one of Carnatic music's most distinctive ragams — associated with lullabies, moonlit nights, and deep peace. Its oscillating melodic movement feels like a gentle rocking. The composer asks Lord Madhava (Vishnu) to come and protect, describing him as the sustainer of all goodness and the embodiment of all creation.
+        <div class="badge-row">
+          <span class="badge h">Neelambari — the most soothing ragam in the canon</span>
+          <span class="badge">Evening mood deepens into stillness</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c1462.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 12 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">12</div>
+        <div class="tl-body">
+          <div class="tl-name">Kanda Naal Mudhalai</div>
+          <div class="tl-meta">Madhuvanthi · Adi talam · N.S. Chidambaram</div>
+        </div>
+        <div class="dur">~7 min</div>
+      </div>
+      <div class="tl-desc">
+        In the nayika tradition — a heroine confides to her friend about falling in love at first sight with Lord Muruga. "From the moment I saw him, my love overflows." Madhuvanthi is a ragam of yearning and sweetness — the name suggests honey. Spring gardens, buzzing bees, a blue peacock, and a gentle smile are vividly painted.
+        <div class="badge-row">
+          <span class="badge h">Madhuvanthi — honeyed, wistful character</span>
+          <span class="badge">Shringaara rasa — romantic devotion</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c12571.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 13 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">13</div>
+        <div class="tl-body">
+          <div class="tl-name">Ragathil Sirandha Ragam</div>
+          <div class="tl-meta">Ragamalika · Adi talam · Kadaloor Subramaniam</div>
+        </div>
+        <div class="dur">~8 min</div>
+      </div>
+      <div class="tl-desc">
+        "Of all ragams, which is the greatest?" — the composer answers by vividly describing each ragam's character line by line. As each ragam is named and described in the lyrics, the music demonstrates it live. A Ragamalika that is also a guided tour through the tradition — delightful for anyone curious about the ragam system.
+        <div class="badge-row">
+          <span class="badge h">A musical journey through ragam personalities</span>
+          <span class="badge">Playful and instructive — try to spot each ragam change</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c17897.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 14 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">14</div>
+        <div class="tl-body">
+          <div class="tl-name">Thillana</div>
+          <div class="tl-meta">Pahaadi · Misra Chapu · Lalgudi Jayaraman</div>
+        </div>
+        <div class="dur">~6 min</div>
+      </div>
+      <div class="tl-desc">
+        Pure rhythm and energy — predominantly abstract syllables (jathi) woven at speed. The concert's exhilarating sprint. Pahaadi is a Hindustani-inflected ragam with a folk-like brightness. Composed by the legendary violinist Lalgudi Jayaraman, it praises Lord Shiva who bears the river Ganga in his matted locks. Watch the interplay between voice and mridangam.
+        <div class="badge-row">
+          <span class="badge h">High-energy finale — pure rhythmic fireworks</span>
+          <span class="badge">Watch the mridangam–vocalist interplay intensify</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c11280.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 15 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">15</div>
+        <div class="tl-body">
+          <div class="tl-name">Thiruppugazh</div>
+          <div class="tl-meta">Durga · Anga talam · St. Arunagirinathar</div>
+        </div>
+        <div class="dur">~6 min</div>
+      </div>
+      <div class="tl-desc">
+        From St. Arunagirinathar's 1,300 Tamil devotional songs to Lord Muruga. This rare piece honours Devi — Mother Earth, Goddess Durga, Parvathi — as ageless, auspicious, and universally protective. Anga talam is an asymmetric rhythmic cycle — listen for the unusual grouping of beats. Durga ragam is crisp and uplifting.
+        <div class="badge-row">
+          <span class="badge">Honouring Devi / Shakti — a rare focus in the Thiruppugazh corpus</span>
+          <span class="badge h">Anga talam — listen for the asymmetric beat grouping</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c23451.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Lyrics &amp; Meaning (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 16 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">16</div>
+        <div class="tl-body">
+          <div class="tl-name">Thiruppavai — 25th Paasuram</div>
+          <div class="tl-meta">Behag · Adi talam · Aandal</div>
+        </div>
+        <div class="dur">~6 min</div>
+      </div>
+      <div class="tl-desc">
+        From the 30 verses of Aandal — the only woman among the 12 Azhwar saints. Addressed to Lord Krishna, this 25th paasuram describes devotees arriving to awaken him, recounting his miraculous birth on the night that demon-uncle Kamsa lived in consuming dread. Behag is a universally beloved, gentle ragam shared with Hindustani music.
+        <div class="badge-row">
+          <span class="badge h">Behag — universally beloved across classical traditions</span>
+          <span class="badge">Aandal — the only woman Azhwar saint</span>
+        </div>
+        <a class="tl-link" href="https://www.karnatik.com/c0288.shtml" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Full Thiruppavai (karnatik.com)
+        </a>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <!-- 17 -->
+    <div class="tl-item">
+      <div class="tl-header">
+        <div class="tl-num">17</div>
+        <div class="tl-body">
+          <div class="tl-name">Mangalam</div>
+          <div class="tl-meta">Concluding benediction</div>
+        </div>
+        <div class="dur">~2 min</div>
+      </div>
+      <div class="tl-desc">
+        The traditional closing — a short, auspicious benediction invoking blessings on all present. When the Mangalam begins, the concert has found its resting place. Rise with it in your heart.
+      </div>
+    </div>
+
+  </div><!-- end timeline -->
+
+  <!-- GLOSSARY -->
+  <h2 class="sec-title" id="glossary">Glossary of terms</h2>
+  <div class="gloss-grid">
+    <div class="gloss-item"><div class="gloss-term">Arangetram</div><div class="gloss-def">Debut concert — literally "ascending the stage." A formal graduation after years of Gurukul training under a Guru.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Ragam</div><div class="gloss-def">Melodic framework. More than a scale — includes ornamentation rules, characteristic phrases, and a unique emotional identity.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Talam</div><div class="gloss-def">Rhythmic cycle. Adi (8 beats) is most common; others range from 5 to 14+ beats. The cycle repeats endlessly throughout the piece.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Varnam</div><div class="gloss-def">Dense technical composition opening a concert. Covers all the ragam's phrases and tests the performer's command comprehensively. Usually performed at a demanding speed.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Krithi</div><div class="gloss-def">A composed song with pallavi (refrain), anupallavi (second section), and charanam (verse). The backbone of the Carnatic repertoire.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Alapanai</div><div class="gloss-def">Free-form ragam exploration with no percussion or talam. The musician "paints" the ragam's personality note by note. One of the most expressive forms in the tradition.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Neraval</div><div class="gloss-def">Melodic improvisation within a single chosen line of a krithi. The melody elaborates freely while staying within the syllabic rhythm of the text — creativity within strict constraint.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Kalpana Swaram</div><div class="gloss-def">Improvised solfège (sa-ri-ga-ma) passages that must resolve precisely on beat 1 (the sam) and re-enter the composition. Traded between vocalist and violinist. Tests rhythmic mastery.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Manodharmam</div><div class="gloss-def">The art of improvisation in Carnatic music. Encompasses alapanai, neraval, kalpana swaram, and tanam. Each concert is therefore a unique, unrepeatable event.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Gamakam</div><div class="gloss-def">Ornamental slides, oscillations, and grace notes applied to melodic notes. Gamakams are what give each ragam its characteristic colour and emotional texture.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Sam</div><div class="gloss-def">Beat 1 of the talam cycle — the most important moment rhythmically. All improvised passages must begin or end here. The sam is the gravitational centre of the performance.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Mridangam</div><div class="gloss-def">The double-headed barrel drum at the heart of Carnatic rhythm. Its right (treble) and left (bass) heads produce over 30 distinct sounds. Follows and supports the vocalist.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Tani Avartanam</div><div class="gloss-def">Optional percussion solo — the mridangist performs alone, exploring the rhythmic cycle. May include ghatam (clay pot) or kanjira (frame drum). A concert within the concert.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Viruttham</div><div class="gloss-def">A verse sung freely in ragam without talam or percussion. Pure melodic expression, one line at a time, with great freedom of tempo and ornamentation.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Ragamalika</div><div class="gloss-def">A "garland of ragams" — a single composition that moves through several different ragams, each section carrying the mood and colour of its ragam.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Thillana</div><div class="gloss-def">High-energy closing piece built on abstract rhythmic syllables (jathi). Showcases speed, precision, and rhythmic dialogue between voice and mridangam.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Pallavi / Anupallavi / Charanam</div><div class="gloss-def">The three sections of a krithi. Pallavi = refrain (returns repeatedly). Anupallavi = counter-theme. Charanam = verse (lyrics unfold here). Think of it like verse–chorus–bridge.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Bhava</div><div class="gloss-def">Emotional expression in music. Beyond technical accuracy, bhava is what elevates a performance from demonstration to experience. The quality listeners feel most deeply.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Mudra</div><div class="gloss-def">The composer's signature embedded within the composition's lyrics. Thyagaraja uses "Thyagaraja"; Dikshitar uses "Guruguha." Spotting the mudra is a connoisseur's pleasure.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Guru–Shishya Parampara</div><div class="gloss-def">The teacher–student lineage. Carnatic music is transmitted orally, person-to-person across generations. Tonight's concert honours that unbroken chain of transmission.</div></div>
+  </div>
+
+  <!-- ETIQUETTE -->
+  <h2 class="sec-title" id="etiquette">Concert etiquette &amp; tips</h2>
+  <div class="etiq-list">
+    <div class="etiq-row"><div class="dot"></div><span>Applause is warm and welcome at natural pauses — especially after a particularly beautiful swaram passage, at the end of a piece, or when the vocalist and violinist resolve together with great precision. Connoisseurs often add a verbal "bhesh!" (excellent).</span></div>
+    <div class="etiq-row"><div class="dot"></div><span>The main piece is long by design. The alapanai builds slowly and rewards patience — resist the urge to check the time. Some of the most beautiful moments come only after long stretches of preparation.</span></div>
+    <div class="etiq-row"><div class="dot"></div><span>The vocalist and violinist exchange glances throughout. They are communicating in real time — negotiating where the improvisation is heading, who takes the next phrase, when to resolve.</span></div>
+    <div class="etiq-row"><div class="dot"></div><span>The mridangist follows and supports the vocalist — watch how the drumming intensifies during kalpana swaram passages and softens during the quieter lyrical sections.</span></div>
+    <div class="etiq-row"><div class="dot"></div><span>During the Varnam (#1) and Thillana (#14), pace and speed increase — these pieces are intentionally athletic, designed to showcase the full technical range of the performer.</span></div>
+    <div class="etiq-row"><div class="dot"></div><span>Try to spot the mudra (composer's signature name) when you know it's there — in Thyagaraja's krithis, you may hear "Thyagaraja" woven into a charanam line.</span></div>
+    <div class="etiq-row"><div class="dot"></div><span>If you know a ragam, see if you can identify it by ear before checking the programme. Over time, recognising ragams becomes one of Carnatic music's deepest and most satisfying pleasures.</span></div>
+  </div>
+
+  <div class="footer">
+    Tonight is not just a concert — it is the beginning of a lifetime of music.<br>Welcome the artist onto the stage with warmth.
+  </div>
+
+</div><!-- end page -->
+
+</body>
+</html>
