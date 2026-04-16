@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concert Lyrics &amp; Meanings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#B87333; --gold-pale:#FAF3E0; --rust:#8B3A1A;
+    --ink:#1A1208; --muted:#6B5B45; --border:rgba(184,115,51,0.20);
+    --bg:#FEFCF7; --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;}
+
+  /* NAV */
+  .topnav{background:#6B2A10;padding:0.6rem 1rem;display:flex;gap:0.4rem;flex-wrap:wrap;justify-content:center;position:sticky;top:0;z-index:100;}
+  .topnav a{color:#E8C98A;text-decoration:none;font-size:10.5px;font-weight:500;letter-spacing:0.5px;text-transform:uppercase;padding:3px 7px;border-radius:4px;transition:background 0.2s;white-space:nowrap;}
+  .topnav a:hover{background:rgba(255,255,255,0.12);}
+
+  .page{max-width:780px;margin:0 auto;padding:0 1rem 4rem;}
+
+  /* MASTHEAD */
+  .masthead{text-align:center;padding:2rem 1rem 1.5rem;border-bottom:1px solid var(--border);margin-bottom:2rem;}
+  .ornament{font-size:16px;color:var(--gold);letter-spacing:8px;display:block;margin-bottom:0.6rem;}
+  .masthead h1{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,5vw,36px);font-weight:300;color:var(--rust);line-height:1.2;}
+  .masthead .sub{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:0.4rem;}
+
+  /* BACK LINK */
+  .back-link{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--rust);text-decoration:none;border:0.5px solid var(--border);border-radius:20px;padding:4px 12px;margin-bottom:1.5rem;background:var(--gold-pale);transition:background 0.2s;}
+  .back-link:hover{background:#F0E0C0;}
+
+  /* SONG CARD */
+  .song{background:var(--card);border:0.5px solid var(--border);border-radius:12px;margin-bottom:2rem;overflow:hidden;scroll-margin-top:70px;}
+  .song-header{background:var(--gold-pale);padding:1rem 1.2rem;border-bottom:0.5px solid var(--border);cursor:pointer;display:flex;align-items:flex-start;gap:12px;}
+  .song-num{font-size:11px;font-weight:500;color:var(--gold);min-width:22px;padding-top:4px;}
+  .song-title-block{flex:1;}
+  .song-title{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,4vw,22px);font-weight:400;color:var(--rust);line-height:1.2;}
+  .song-meta{font-size:12px;color:var(--muted);margin-top:3px;}
+  .song-toggle{font-size:18px;color:var(--gold);align-self:center;transition:transform 0.3s;flex-shrink:0;}
+  .song-toggle.open{transform:rotate(180deg);}
+
+  .song-body{padding:1.2rem;display:none;}
+  .song-body.open{display:block;}
+
+  /* TABS */
+  .tabs{display:flex;gap:6px;margin-bottom:1.2rem;flex-wrap:wrap;}
+  .tab{font-size:12px;font-weight:500;padding:4px 14px;border-radius:20px;border:0.5px solid var(--border);color:var(--muted);background:var(--bg);cursor:pointer;transition:all 0.2s;}
+  .tab.active{background:var(--rust);color:#fff;border-color:var(--rust);}
+  .tab-content{display:none;}
+  .tab-content.active{display:block;}
+
+  /* LYRICS */
+  .section-label{font-size:11px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin:1rem 0 0.3rem;}
+  .section-label:first-child{margin-top:0;}
+  .lyric-line{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,3.5vw,19px);font-weight:400;color:var(--ink);line-height:1.5;margin-bottom:2px;}
+  .meaning-line{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:4px;}
+  .meaning-line em{color:var(--rust);font-style:italic;}
+  .word-table{width:100%;border-collapse:collapse;margin:0.5rem 0 1rem;font-size:12.5px;}
+  .word-table td{padding:4px 8px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .word-table td:first-child{color:var(--rust);font-weight:500;white-space:nowrap;width:40%;}
+  .word-table td:second-child{color:var(--muted);}
+  .notation-block{font-family:'Courier New',monospace;font-size:11.5px;color:var(--muted);background:#F7F3EC;border-radius:6px;padding:0.8rem 1rem;line-height:1.8;overflow-x:auto;white-space:pre-wrap;}
+  .info-box{background:var(--gold-pale);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:0.8rem 1rem;font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1rem;}
+  .info-box strong{color:var(--rust);}
+  .raga-info{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1rem;}
+  .raga-pill{font-size:11px;padding:3px 10px;border-radius:20px;border:0.5px solid var(--border);color:var(--muted);background:var(--bg);}
+  .raga-pill span{color:var(--rust);font-weight:500;}
+  hr.divider{border:none;border-top:1px dashed var(--border);margin:1rem 0;}
+  .credit{font-size:11px;color:var(--muted);font-style:italic;margin-top:1rem;}
+
+  .footer{text-align:center;font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:1.5rem;margin-top:2rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="#top">&#8679; Top</a>
+  <a href="#viriboni">1. Viriboni</a>
+  <a href="#ganapathi">2. Ganapathi</a>
+  <a href="#jagadananda">3. Jagadananda</a>
+  <a href="#sooryamurthe">4. Sooryamurthe</a>
+  <a href="#kaavaavaa">5. Kaa Vaa Vaa</a>
+  <a href="#raghuvamsa">6. Raghuvamsa</a>
+  <a href="#orangashayee">7. O Rangashayee</a>
+  <a href="#enthamaathramuna">8. Enthamaathramuna</a>
+  <a href="#omnamonarayana">9. Om Namo Narayana</a>
+  <a href="#kandanaal">10. Kanda Naal</a>
+  <a href="#kurai">11. Kurai Ondrum</a>
+  <a href="#madhava">12. Madhava Mamava</a>
+  <a href="#ragathil">13. Ragathil</a>
+  <a href="#thillana">14. Thillana</a>
+  <a href="#thiruppugazh">15. Thiruppugazh</a>
+  <a href="#thiruppavai">16. Thiruppavai</a>
+  <a href="index.html">&#8592; Programme</a>
+</nav>
+
+<div class="page">
+  <div class="masthead" id="top">
+    <span class="ornament">✦ ✦ ✦</span>
+    <h1>Lyrics &amp; Meanings</h1>
+    <div class="sub">Concert Repertoire · All 16 Pieces</div>
+  </div>
+
+  <a class="back-link" href="index.html">&#8592; Back to Programme Guide</a>
+
+  <!-- ═══════════════════════════════════════════════════
+       1. VIRIBONI
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="viriboni">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">1</div>
+      <div class="song-title-block">
+        <div class="song-title">Viriboni (Varnam)</div>
+        <div class="song-meta">Bhairavi · Ata Talam · Pacchimiriyam Adiyappa · Telugu</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Bhairavi</div>
+        <div class="raga-pill"><span>Talam:</span> Ata (14 beats)</div>
+        <div class="raga-pill"><span>Language:</span> Telugu</div>
+        <div class="raga-pill"><span>Aro:</span> S G₂ R₂ G₂ M₁ P D₂ N₂ Ṡ</div>
+        <div class="raga-pill"><span>Ava:</span> Ṡ N₂ D₂ P M₁ G₂ R₂ S</div>
+      </div>
+      <div class="info-box">A <strong>Varnam</strong> is a dense, comprehensive composition that serves as the opening declaration of a concert. It explores all the characteristic phrases and movements of the ragam, covering pallavi, anupallavi, muktyi swaram, chitta swaram, and charanam. Bhairavi is one of Carnatic music's most richly emotive ragams — soulful and yearning, it is also the parent of the beloved Hindustani Bhairavi.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'viriboni','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'viriboni','meaning')">Meaning</div>
+        <div class="tab" onclick="showTab(this,'viriboni','notation')">Notation</div>
+      </div>
+
+      <div class="tab-content active" id="viriboni-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Viriboni ninnE kOri marulukonnadirA</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Shirasu au dakshinA dvArakA sAmi shrI rAjagOpAla dEvA</div>
+        <div class="section-label">Charanam</div>
+        <div class="lyric-line">chirunavvu mOmuna</div>
+      </div>
+
+      <div class="tab-content" id="viriboni-meaning">
+        <div class="info-box"><strong>Central theme:</strong> This varnam expresses the Shringaara rasa (romantic devotion) of the heroine Viriboni for Lord Rajagopala of Tanjapuri. Through the metaphor of a flower blooming, the heroine describes her devotion — she has become enchanted (marulukonnadirA = I am bewildered/enchanted) by Him. The composition expresses the universal theme in Tamil devotion: the devotee as a lovelorn heroine seeking union with the divine.</div>
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">Having bloomed (<em>viriboni</em>), desiring you (<em>ninnE kOri</em>), I am enchanted, is it not so? (<em>marulukonnadirA</em>)</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">O Lord of the sacred south, O Lord of Dwaraka, O Lord Rajagopala Deva.</div>
+        <div class="section-label">Charanam</div>
+        <div class="meaning-line">With a gentle smile (<em>chirunavvu</em>) on your face (<em>mOmuna</em>)…</div>
+      </div>
+
+      <div class="tab-content" id="viriboni-notation">
+        <div class="info-box">The notation below uses standard Carnatic solfège. <strong>S R G M P D N</strong> = Sa Ri Ga Ma Pa Da Ni. Subscript numbers denote variants (e.g. G₂ = Sādhārana Gāndhāra). A comma (,) indicates a pause; semicolon (;) a held note.</div>
+        <div class="notation-block">Pallavi:
+, , , , , , , , ,  S , R , , G S , R
+G R G G R , , , G G R G M P D P M G R S
+S M G R S  S | R G S R   )  ||
+
+Chitta Swaram I:
+, , , , , , , , 0 N D P M G R G M N D P
+M G R P M G R S , )  S R G  S R G M P
+N N D P , D M P | G R G M P D N , ||
+
+Chitta Swaram II:
+S , , , N 0 N 0 4 0 N D P M G R G M N D P
+...
+
+Muktyi Swaram — Charanam:
+, , , , , , , , chi . ru . nav . vu . . .
+(see PDF source for full notation)</div>
+        <div class="credit">Notation source: Shivkumar.org (PDF transcription)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       2. SRI MAHA GANAPATHI
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="ganapathi">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">2</div>
+      <div class="song-title-block">
+        <div class="song-title">Shri Mahā Gaṇapati Rāvatu Mām</div>
+        <div class="song-meta">Gowlai · Misra Chapu · Mutthuswami Dikshitar · Sanskrit</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Gowlai (Gowla)</div>
+        <div class="raga-pill"><span>Talam:</span> Misra Chapu (7 beats)</div>
+        <div class="raga-pill"><span>Language:</span> Sanskrit</div>
+        <div class="raga-pill"><span>Mudra:</span> Guruguha (Dikshitar's signature)</div>
+      </div>
+      <div class="info-box">Sung as an invocation to Mahā Gaṇapati before the Kamalāmbā Navavarṇa krithis, this composition references the Ganapati known as Mattu Uraitta Pillayar, whose temple stands on the bank of Kamalālayam — the temple tank in Tiruvarur. The legend of Lord Tyagaraja helping devotee Sundara Moorthy Nayanar obtain gold through this Ganapati is embedded in the notes.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'ganapathi','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'ganapathi','meaning')">Meaning</div>
+        <div class="tab" onclick="showTab(this,'ganapathi','notation')">Notation</div>
+      </div>
+
+      <div class="tab-content active" id="ganapathi-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Shrī Mahā Gaṇapati rāvatu māṁ Siddhi Vināyako Mātaṅga Mukha</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Kāma Janaka Vidhēndra Sannuta Kamalālaya Taṭhanivāso</div>
+        <div class="lyric-line">Komalatara Pallavapāda Kara Guruguhaagrajah Shivātmajah</div>
+        <div class="section-label">Charanam</div>
+        <div class="lyric-line">Suvarṇākarṣaṇa Vighnarājo Pādāmbujō</div>
+        <div class="lyric-line">Gaura Varṇa Vasana Dharo Phālachandro Narādivinuta</div>
+        <div class="lyric-line">Lambodaro Kuvalaya Svaviṣhāṇā Pāshāṅkusha Modaka Prakāshakaro</div>
+        <div class="lyric-line">Bhavajaladhi Nāvo Mūlaprakṛti Svabhāvas Sukhataro</div>
+        <div class="lyric-line">Ravisahasra Sannibhadēho Kavijananuta Mūṣhikavāho</div>
+        <div class="lyric-line">Avanata Devatāsamūho Avināsha Kaivalya Dēho</div>
+        <div class="section-label">Chitta Swaram</div>
+        <div class="lyric-line">P M G — M - R — G M — R S R — S - N - S R…</div>
+        <div class="lyric-line"><em>(Dhimi — Tanaku Jham — kita tha — Janu tha…)</em></div>
+      </div>
+
+      <div class="tab-content" id="ganapathi-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">May Lord Mahā Gaṇapati protect me (<em>rāvatu māṁ</em>). He is Siddhi Vināyaka, the elephant-faced (<em>Mātaṅga Mukha</em>) one.</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">Venerated (<em>sannuta</em>) by Vishnu (<em>Kāmajanaka</em> — father of Kama), Brahma (<em>Vidhi</em>), and Indra (<em>Indra</em>); He resides (<em>nivāso</em>) on the banks (<em>taṭa</em>) of the temple-tank Kamalālaya; His feet (<em>pāda</em>) and hands (<em>kara</em>) are beautiful like tender (<em>komala</em>) leaves (<em>pallava</em>). He is the elder brother (<em>āgrajah</em>) of Guruguha and the son of Shiva.</div>
+        <div class="section-label">Charanam</div>
+        <div class="meaning-line">He is attractive like pure gold and is the remover of impediments. His feet are like the lotus. He is attired in white, his forehead is like a crescent moon. Lambodhara holds his own tusk, a lily, a rope, a goad, and a Modaka. He is the boat (<em>nāvo</em>) that takes us across the ocean of Saṁsāra. His body shines like a thousand suns. He has a mouse as his mount. Hosts of celestials worship him and he abides in eternal bliss (<em>Kaivalya</em>).</div>
+        <div class="info-box"><strong>Legend:</strong> Sundara Moorthy Nayanar sought gold from Lord Tyagaraja to make jewels for his wife. Five golden bricks were left at a kiln near Keevalur; returning home to Tiruvarur, he found them in the Kamalālaya tank. When goldsmiths doubted their purity, Lord Ganesha appeared disguised as Muthanna Achari and made them shine as the purest gold. This Ganapati is known as Mattu Uraitta Pillayar.</div>
+        <div class="credit">Meaning source: TK Govinda Rao; Notes: Mrs. Janaki Krishnamoothy</div>
+      </div>
+
+      <div class="tab-content" id="ganapathi-notation">
+        <div class="notation-block">Pallavi (Version 1):
+S , r M  | P ;  R P  || M  G R | S sr rs S  ||
+Shri-Ma haa-   Gana  pa ti- ra  va tu- Maam
+
+Anupallavi:
+P ; M  | R G  M - R  ||
+S  ; S  | sn P  R R  ||
+Kaa-ma Jana ka - Vi dheen-dra San-- nu ta
+
+Chitta Swaram:
+P M G  | M - R   G M  || R S R   | S - N  S R  ||
+P M  Dhimi- R   G M   Tanaku Jham  N  S R  ||
+</div>
+        <div class="credit">Notation source: Shivkumar.org</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       3. JAGADANANDHAKARAKA
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="jagadananda">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">3</div>
+      <div class="song-title-block">
+        <div class="song-title">Jagadānandha Kāraka</div>
+        <div class="song-meta">Naatai · Adi Talam · St. Thyagaraja · Sanskrit</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Naatai (36th mela janyam)</div>
+        <div class="raga-pill"><span>Talam:</span> Adi (8 beats)</div>
+        <div class="raga-pill"><span>Aro:</span> S R3 G3 M1 P D3 N3 S</div>
+        <div class="raga-pill"><span>Ava:</span> S N3 P M1 R3 S</div>
+        <div class="raga-pill"><span>Series:</span> Pancharatna Krithi #1</div>
+      </div>
+      <div class="info-box"><strong>Pancharatna Krithi:</strong> One of five gem compositions by Thyagaraja, performed en masse at annual Aradhana festivals. This first gem contains 108 names (<em>ashtottara</em>) of Lord Rama embedded across its charanams. Thyagaraja describes Shri Rama as Parabrahma — greater than the Trinity — and as bestower of happiness to all the world.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'jagadananda','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'jagadananda','meaning')">Meaning</div>
+        <div class="tab" onclick="showTab(this,'jagadananda','notation')">Notation</div>
+      </div>
+
+      <div class="tab-content active" id="jagadananda-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Jagadānanda kāraka Jaya Jānaki Prāṇa Nāyakā</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Gaganadipa Sath Kulaja Rāja Rājēshwarā</div>
+        <div class="lyric-line">Suguṇākara Sura Sēvya Bhavya Dāyakā Sadā Sakala</div>
+        <div class="section-label">Charanam 1</div>
+        <div class="lyric-line">Amara Tāraka Nichaya Kumudahitha PariPūrṇa Anagha Sura-asura</div>
+        <div class="lyric-line">Pūja Dadhi Payodhi Vāsaharanā Sundara tara vadana Sudhāmaya Vacho</div>
+        <div class="lyric-line">Brinda Govinda Sānanda Mā Varā Jarāptha Shubha Karā Aneka</div>
+        <div class="section-label">Charanam 2</div>
+        <div class="lyric-line">Nigama Nērajā Amṛuthaja Pōshaka Animisha Vaira Vāridha Samērana</div>
+        <div class="lyric-line">Khaga Thuranga Sath Kavi Hṛudā Laya Agaṇitha Vānara Adhipa Natha Aṅgriyuga</div>
+        <div class="section-label">Charanam 3</div>
+        <div class="lyric-line">Indra Nēla Maṇi Sannibha Apaghana Chandra Sūrya Nayana Aprameya</div>
+        <div class="lyric-line">Vāgēndra Janaka Sakalēsha Shubra Nāgēndra Shāyana Samana Vairi Sannutha</div>
+        <div class="section-label">Charanam 4</div>
+        <div class="lyric-line">Pāda Vijitha Mouni Chāpa Sava Paripāla Vara Manthra Grahaṇa Lola</div>
+        <div class="lyric-line">Parama Shāntha Chittha Janakajā Adipa Saroja Bhava Varadā Akila</div>
+        <div class="section-label">Charanam 5</div>
+        <div class="lyric-line">Srushti Stthityantha Kāra Kāmitha Kamitha Phaladā Asamana Gāthra</div>
+        <div class="lyric-line">Shachī Pathi nutha Apdhi Madaharā Anurāga Rāga Rājitha Kathā Sārahitha</div>
+      </div>
+
+      <div class="tab-content" id="jagadananda-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line"><em>Bestower of happiness to the world</em> (<em>Jagadānanda kāraka</em>), O husband of Sita (<em>Jānaki Prāṇa Nāyakā</em>) — victory to you (<em>Jaya</em>)!</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">Born in the best race of Sūrya, king of the skies (<em>Gaganadipa</em>). King of kings (<em>Rāja Rājēshwara</em>), fund of the noblest character, worshipped by the Devas, bestower of all successes at all times.</div>
+        <div class="section-label">Charanam 1</div>
+        <div class="meaning-line">The moon among the Milky Way of the Devas. Blameless, sinless, expert in stealing curd and milk from pots. One who has the best countenance and utters nectar-dripping words. Always happy, immortal, ever young. Lord of Lakshmi, giver of all successes.</div>
+        <div class="section-label">Charanam 2</div>
+        <div class="meaning-line">One who expounds the sweet lotus-words of the Vedas. Hurricane to the dark clouds of the enemies of the Devas. He who has Garuda as his vehicle. One filled in the minds of the greatest poets. Whose feet are worshipped by Sugrīva, leader of the countless monkeys.</div>
+        <div class="section-label">Charanam 3</div>
+        <div class="meaning-line">One whose body is like the blue diamond of Indra. One who has the moon and sun as eyes. Father of Brahma. Lord of everything. One who rests on the great white serpent. Worshipped by Lord Shiva, the enemy of death.</div>
+        <div class="section-label">Charanam 4</div>
+        <div class="meaning-line">Remover of Gauthama's curse by the touch of his divine feet. Protector of yāgas. One who learned the best mantras from Vishwāmithra. One with a very peaceful mind. Lord of Sita. Granter of boons to Brahma. Giver of happiness to the entire world.</div>
+        <div class="section-label">Charanam 5</div>
+        <div class="meaning-line">One responsible for creation, sustenance, and destruction. Bestower of all desired fruits. One whose body is beyond comparison. Worshipped by Indra. Dispeller of ocean-like pride. Whose stories are adorned with rāga and love. Lord of all.</div>
+        <div class="credit">Meaning source: Shivkumar.org (hybrid of M. Balamuralikrishna and T.Rukmini)</div>
+      </div>
+
+      <div class="tab-content" id="jagadananda-notation">
+        <div class="notation-block">Pallavi:
+P P   P np   pm gm   P N   S S ; N   S ; ; ;
+Jaga  daa-   - - -   nan  da Kaa   ra   ka
+
+P P   n n P   n n P   ; sn   N N S ; pn sn   pmgm
+Jaga  da--    - - -    nan    - da  Kaa-   - - - ra  ka
+
+Anupallavi:
+; n n , S ,  ; p n , S ,   P N   S ;  ; ; sn N
+Gaga  naa dipa     Sath Kula ja
+
+m g pm n p | s n s r s r sn pm | R , r r r s S , n P , m gm
+Suguna kara Sura Se-vya Bhav-vya Daa - ya kaa Sa daa Sa ka la
+
+Charanam 1:
+ssn p ; mp  s s r s s m m r  sm M ; P ; ; pm mp mm
+Amara Tha raka nichaya ku mudahitha Pari Pu- rnaa- nagha sura- sura
+</div>
+        <div class="credit">Notation source: Shivkumar.org</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       4. SOORYAMURTHE
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="sooryamurthe">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">4</div>
+      <div class="song-title-block">
+        <div class="song-title">Sūrya Mūrtē</div>
+        <div class="song-meta">Sowrastram · Dhruva Talam · Mutthuswami Dikshitar · Sanskrit</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Sowrastram (Sūryakāntam janya)</div>
+        <div class="raga-pill"><span>Talam:</span> Dhruva (14 beats)</div>
+        <div class="raga-pill"><span>Aro:</span> S R₁ G₃ M₁ P M₁ D₂ N₃ Ṡ</div>
+        <div class="raga-pill"><span>Ava:</span> Ṡ N₃ D₂ N₂ D₂ P M₁ G₃ R₁ S</div>
+        <div class="raga-pill"><span>Series:</span> Navagraha Krithi #1 (Surya)</div>
+      </div>
+      <div class="info-box">The first of Dikshitar's nine planetary compositions (Navagraha Krithis). Since Surya is described as <em>Namaskāra-priya</em> (one who likes salutations), the krithi opens with <em>namōstu tē</em> — salutations to you. The composition is in the eighth vibhakti (vocative case), addressing Surya directly throughout. Dikshitar's mudra "Guruguha" is embedded in the charanam.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'sooryamurthe','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'sooryamurthe','meaning')">Meaning</div>
+        <div class="tab" onclick="showTab(this,'sooryamurthe','notation')">Notation</div>
+      </div>
+
+      <div class="tab-content active" id="sooryamurthe-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Sūrya mūrtē namō(a)stu tē sundara Chāyādhipatē</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Kārya kāraṇātmaka jagatprakāsha-siṁha rāshyadhipatē</div>
+        <div class="section-label">Madhyama Kāla Sāhityam</div>
+        <div class="lyric-line">Ārya vinuta tējaḥsphūrtē — Ārogyādi phalada kīrtē</div>
+        <div class="section-label">Charanam</div>
+        <div class="lyric-line">Sārasa mitra mitra bhānō sahasra kiraṇa karṇa sūnō</div>
+        <div class="lyric-line">Krūra pāpa hara kṛshānō Guru guha mōdita svabhānō</div>
+        <div class="lyric-line">Sūri janēḍita su-dinamaṇē sōmādi graha shikhāmaṇē</div>
+        <div class="lyric-line">Dhīrārcita karma sākshinē divya-tara saptāshva rathinē</div>
+        <div class="section-label">Madhyama Kāla — Charanam</div>
+        <div class="lyric-line">Saurāshṭārṇa mantrātmanē sauvarṇa svarūpātmanē</div>
+        <div class="lyric-line">Bhāratīsha hari harātmanē bhukti mukti vitaraṇātmanē</div>
+      </div>
+
+      <div class="tab-content" id="sooryamurthe-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">Salutations (<em>namōstu tē</em>) to you, O Lord Surya (<em>Sūrya mūrtē</em>), O husband of the beautiful Chāyā Devi (<em>sundara Chāyādhipatē</em>)!</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">O one who is cause and effect (<em>Kārya kāraṇātmaka</em>)! O one who lights up the entire earth (<em>jagatprakāsha</em>)! O Lord of the Leo zodiacal sign (<em>siṁha rāshyadhipati</em>)!</div>
+        <div class="section-label">Madhyama Kāla</div>
+        <div class="meaning-line">O one praised by the noble-minded (<em>Ārya vinuta</em>)! O fountainhead of light (<em>tējaḥsphūrti</em>)! O one famed for granting benefits like good health (<em>Ārogyādi phalada kīrti</em>)!</div>
+        <div class="section-label">Charanam</div>
+        <div class="meaning-line">O friend of the lotus! O bright one (<em>bhānō</em>)! O one with a thousand rays! O son of Karṇa! O fire that destroys deadly sins! O one who delights Guruguha! O self-luminous one! O lovely gem of the daytime sky! O supreme crest-jewel of all the Grahas (planets)! O witness of all karma! O one with an exceptionally divine seven-horse chariot! O one who is the personification of the solar mantra! O one whose form is golden! O one who is Brahma, Vishnu, and Shiva! O liberal bestower of both enjoyment and liberation!</div>
+        <div class="credit">Meaning source: Guru Guha Vaibhavam blog</div>
+      </div>
+
+      <div class="tab-content" id="sooryamurthe-notation">
+        <div class="notation-block">Pallavi:
+P,m DP  PM GM | mgR ; ; | rs S ; ; S ; N S | sn D  D ; dNd P ;
+sU-  -  rya- mU-  - - - rtE-- - -  na   mO  - - - stu  tE - --
+
+SN  S ;  S ;  R S | R ; R ; | G ;  ; ; MG  Mpm | mgR SR  S R GM
+Sun-  -  da   ra   -  - -  - chA-  - - yA-  - -  dhi- pa-  tE- -
+
+Anupallavi:
+M ;  ; ; M  GM | GR  SR | S  ; S  | sn P  R R
+kAr  - - ya kA-  - - ra- NA-  - -  tma  ka  ja - ga- -
+
+Charanam (madhyama kala):
+S ; N  R S R  G M | P ; N D | DP  S ; S ; S P | P - D P M  mg R S R
+Ar-  - ya vi nu-  ta tE - ja  Hs phUr  tE  - - A  rO - gyA- di pha la da kIr tE
+</div>
+        <div class="credit">Notation source: Shivkumar.org</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       5. KAA VAA VAA
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="kaavaavaa">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">5</div>
+      <div class="song-title-block">
+        <div class="song-title">Kā Vā Vā</div>
+        <div class="song-meta">Varali · Adi Talam · Papanasam Shivan · Tamil</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Varali</div>
+        <div class="raga-pill"><span>Talam:</span> Adi (8 beats)</div>
+        <div class="raga-pill"><span>Language:</span> Tamil</div>
+        <div class="raga-pill"><span>Deity:</span> Lord Muruga / Shanmugha</div>
+      </div>
+      <div class="info-box">Papanasam Shivan (1890–1973), revered as the "Tamil Thyagaraja," composed this urgent invocation to Lord Muruga. The title itself — <em>Kā Vā Vā</em> — means "Come, protect (me), come." Varali is a ragam of intense longing and deeply haunting beauty, perfectly matched to the pleading urgency of this appeal.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'kaavaavaa','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'kaavaavaa','meaning')">Meaning</div>
+        <div class="tab" onclick="showTab(this,'kaavaavaa','notation')">Notation</div>
+      </div>
+
+      <div class="tab-content active" id="kaavaavaa-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Kā Vā Vā Kandha vā vā Yennai Kā vā Vēla vā Murugā</div>
+        <div class="lyric-line">Shanmughā · Pazhani malaiyuraiyum Murugā</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Devādi Devan Maghane Vā</div>
+        <div class="lyric-line">Para Devi Madiyil amarum Guhane Vā</div>
+        <div class="lyric-line">Valli Deivayanai manavalā vā</div>
+        <div class="lyric-line">Sharavana bhava parama dayalā Shanmughā</div>
+        <div class="section-label">Charanam</div>
+        <div class="lyric-line">Āpathin Irulara Aruloli tharum appane annane ayya vā</div>
+        <div class="lyric-line">Pāpa thiral tharum thapam Agala varum</div>
+        <div class="lyric-line">Pazhani valar karunai mazhayee vā</div>
+        <div class="lyric-line">Thapatraya veyilara nizhal tharum vāntharuve yen Kula guru vee vā</div>
+        <div class="lyric-line">Shri Padmanabhan marugha Rāma dasan vanangum muthaiyā viraivoḍu</div>
+      </div>
+
+      <div class="tab-content" id="kaavaavaa-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">O Murugā / Shanmughā, who lives (<em>uraiyum</em>) in Pazhani malai — come (<em>vā</em>) to protect me. [<em>Kā</em> = protect]</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">Come, O son of Shiva (<em>Devādi Devan Maghan</em>). Come, O Guha, who sits on Pārvati's lap (<em>Para Devi Madiyil</em>). Come, O husband (<em>manavalā</em>) of Valli and Deivayanai. O Sharavana, the supremely compassionate one (<em>parama dayalā</em>).</div>
+        <div class="section-label">Charanam</div>
+        <div class="meaning-line">You are one who bestows light (<em>arul oli</em>) to remove the darkness (<em>irul</em>) of danger (<em>āpathin</em>). You are the one who comes and removes longing (<em>thapam</em>) and sin (<em>pāpa</em>). You are the shower of kindness (<em>karunai mazhai</em>) who grew up in Pazhani. You are the one who gives the shade (<em>nizhal</em>) to protect from the scorching rays (<em>veyil</em>) of intense (<em>traya</em>) longing. Come, O heavenly being, O Guru of our community (<em>kula guru</em>). O son-in-law of Lord Vishnu (<em>Padmanabha marugha</em>), O one worshipped by Rāmadāsa — O gem of a person (<em>muthaiyā</em>), come swiftly!</div>
+        <div class="credit">Source: Shivkumar.org</div>
+      </div>
+
+      <div class="tab-content" id="kaavaavaa-notation">
+        <div class="notation-block">Pallavi:
+; G , G , G ;  ; G | mpd P , dpM | G R  R S ||
+Kaa vaa vaa  Kan    daa  vaa  vaa - yen nai
+
+; S  S ; ; R  G R | S ;  ; ; | ;  r s  , r s r ||
+Kaa  va  ve  - la   vaa           Shan - mu -
+
+Anupallavi:
+P ;   pm G   G R  S, r | G R  G  M | P ;  ; ; ||
+De    vaa  - di   De   van Ma  gha ne  vaa
+
+P ,d  N  D N  D , d N | S - D N  S | S ;  ; ; ||
+De    vi  Ma di yil Ama    rum Gu ha (ne) vaa - -
+
+Charanam:
+P ;  pm G  G R  R S |  S R  G R | R  S  S ; ||
+Aa   pa -  thiru lara  A ru lo li   tha rum a--
+</div>
+        <div class="credit">Notation source: Shivkumar.org (uploaded file)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       6. RAGHUVAMSA SUDHA
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="raghuvamsa">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">6</div>
+      <div class="song-title-block">
+        <div class="song-title">Rāghuvamsha Sudhāmbudhi Chandra</div>
+        <div class="song-meta">Kathanakuthoohalam · Adi Talam · Patnam Subramanya Iyer · Telugu</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Kathanakuthoohalam</div>
+        <div class="raga-pill"><span>Talam:</span> Adi (8 beats)</div>
+        <div class="raga-pill"><span>Aro:</span> Sa Re Ma Dha Ni Ga Pa Sa</div>
+        <div class="raga-pill"><span>Ava:</span> Sa Ni Dha Pa Ma Ga Re Sa</div>
+        <div class="raga-pill"><span>Language:</span> Telugu</div>
+      </div>
+      <div class="info-box"><em>Kathanakuthoohalam</em> means "eagerness to narrate wonders" — a ragam known for its energising, martial quality. It is believed this krithi was historically sung to kings to motivate them before battle. The fast-paced number in this vigorous ragam makes it equally compelling on violin, veena, and saxophone.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'raghuvamsa','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'raghuvamsa','meaning')">Meaning</div>
+      </div>
+
+      <div class="tab-content active" id="raghuvamsa-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Rāghuvamsha sudhāmbhudhi chandra Shrī Rāma Rāma Rājēshwara</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Aghamēgha maruta shrikara Asurēsha mṛigēndra vara Jagannātha</div>
+        <div class="section-label">Charanam</div>
+        <div class="lyric-line">Jamadagnija garva khaṇḍana Jayarudrādi vismita bhaṇḍana</div>
+        <div class="lyric-line">Kamalāptanvaya maṇḍana Agaṇitabhūta shaurya Shrī Vēnkaṭēsha</div>
+      </div>
+
+      <div class="tab-content" id="raghuvamsa-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">O moon (<em>chandra</em>) to the nectar-ocean (<em>sudhāmbhudhi</em>) of the Raghu lineage (<em>rāghuvamsha</em>)! Shrī Rāma, lord of emperors (<em>Rājēshwara</em>)!</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">O wind that drives away the sin-cloud! Maker of prosperity! O lion terrifying the king of Asuras! Noble lord of the world (<em>Jagannātha</em>)!</div>
+        <div class="section-label">Charanam</div>
+        <div class="meaning-line">O destroyer of Paraśurāma's conceit (<em>Jamadagnija garva khaṇḍana</em>)! One praised by the amazed Rudra and others! O ornament to the solar dynasty (<em>Kamalāptanvaya maṇḍana</em>)! O doer of innumerable marvellous heroics! Lord of Venkata!</div>
+        <div class="credit">Source: Sapthaswaras / VijayaDhwani</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       7. O RANGASHAYEE
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="orangashayee">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">7</div>
+      <div class="song-title-block">
+        <div class="song-title">O Raṅgashāyi — Main Piece</div>
+        <div class="song-meta">Khambhoji · Adi Talam (2 kalai) · St. Thyagaraja · Telugu</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Khambhoji (28th mela janyam)</div>
+        <div class="raga-pill"><span>Talam:</span> Adi 2-kalai (16 counts)</div>
+        <div class="raga-pill"><span>Aro:</span> S R2 G3 M1 P D2 S</div>
+        <div class="raga-pill"><span>Ava:</span> S N2 D2 P M1 G3 R2 S N3 P D2 S</div>
+      </div>
+      <div class="info-box"><strong>Tonight's centrepiece.</strong> This krithi will be presented with full <em>raga alapanai</em> (free improvisation), <em>neraval</em> (lyrical improvisation within a line), and <em>kalpana swaram</em> (solfège exchanges). Thyagaraja addresses Lord Raṅganātha reclining at Shrī Raṅgam, asking why He remains silent when sincerely called. Khambhoji — grand, warm, and romantic — is among the most beloved ragams for a main piece.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'orangashayee','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'orangashayee','meaning')">Meaning</div>
+        <div class="tab" onclick="showTab(this,'orangashayee','notation')">Notation</div>
+      </div>
+
+      <div class="tab-content active" id="orangashayee-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">O raṅgashāyi pilaciṭē O yanucu rā rādā</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Sāraṅga varuḍu jūci Kailāsādhipuḍu gālēdā</div>
+        <div class="section-label">Charanam</div>
+        <div class="lyric-line">Bhūlōka Vaikuṇṭham idiyani nīlōna nīvē yuppoṅgi</div>
+        <div class="lyric-line">Shrī lōluḍai yuṇṭe mā cintadire dennaḍo mēlōrva</div>
+        <div class="lyric-line">Lēni janulalō nē migula nōgili divya rūpamunu mutyāla</div>
+        <div class="lyric-line">Saruḷa yuramunu gana vacciti Tyāgarāja hṛd-bhūṣaṇa</div>
+      </div>
+
+      <div class="tab-content" id="orangashayee-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">O Raṅgashāyi! When I address you and call you (<em>pilaciṭē</em>) earnestly, can you not respond by uttering "O" (<em>O yanucu</em>) and appear (<em>rā rādā</em>)?</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">Has not Lord Shiva — the holder of the deer (<em>Sāraṅga dharuḍu</em>) — become (<em>gālēdā</em>) Kailāsapati simply by beholding (<em>jūci</em>) You?</div>
+        <div class="section-label">Charanam</div>
+        <div class="meaning-line">You seem to regard Shrī Raṅgam (<em>Bhūlōka Vaikuṇṭham</em>) as Vaikuṇṭha itself, and lose yourself (<em>nīlōna nīvē</em>) in the enjoyment (<em>yuppoṅgi</em>) of the company of Shrī Devi (<em>Shrī lōluḍai</em>). When will come a day when there is an end (<em>dīra</em>) to my mental sufferings (<em>cinta</em>)? I am suffering intensely (<em>migula nōgili</em>) in the midst of men so insular they cannot stand the prosperity of others (<em>mēlōrvalēni janulalō</em>). I have come to see you and seek your divine vision (<em>divya rūpamu</em>) bedecked with garlands of pearls dancing on your bosom, O Lord adorning the heart of Tyāgarāja.</div>
+        <div class="credit">Source: Shivkumar.org</div>
+      </div>
+
+      <div class="tab-content" id="orangashayee-notation">
+        <div class="notation-block">Pallavi:
+S,r G ,r  G mg GR  Srg RS  S ; sn P | PD ; ;  S ; ; ; | ; ; ; ;  ; ; ; ;
+O -----   - - -   - -    - - - - - Ran ga--- shaa-  yi! - -  - - - - - - - -
+
+Anupallavi:
+MP Dnd  P ; N D  DP pmM ;  mGm P ; | P ; MP  D ; ndpm | P ; ; ;  ; ; ; ;
+Saa- -  -   ran-  - - ga- - Dha- -  ru   du  Ju -  - -  - - -   chi
+
+Charanam:
+GM Pdn  DM Mpd  P ; pmG ; dp mGm P ; | P ; MP  mpD D; | P ; D ;  S ; R ;
+sa-Saa- - - -   ran-  - - ga- - Dha- - ru   du Ju - -  - - chi  Kai- - - laa- - -
+</div>
+        <div class="credit">Notation source: Shivkumar.org</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       8. ENTHAMAATHRAMUNA
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="enthamaathramuna">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">8</div>
+      <div class="song-title-block">
+        <div class="song-title">Entamātramuna Evvaru Talachina</div>
+        <div class="song-meta">Ragamalika · Misra Chapu · Annamacharya · Telugu</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Ragamalika (multiple ragams)</div>
+        <div class="raga-pill"><span>Talam:</span> Misra Chapu (7 beats)</div>
+        <div class="raga-pill"><span>Language:</span> Telugu</div>
+        <div class="raga-pill"><span>Deity:</span> Lord Venkateswara (Tirupati)</div>
+      </div>
+      <div class="info-box">15th-century poet-saint Annamacharya (1408–1503), the first known composer of Telugu keertanas, composed this profound philosophical statement. The central idea: God's form and grace are shaped entirely by the devotee's own imagination and devotion — all paths, all forms of worship, all names lead to the same Supreme Being.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'enthamaathramuna','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'enthamaathramuna','meaning')">Meaning</div>
+      </div>
+
+      <div class="tab-content active" id="enthamaathramuna-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Entamātramuna Evvaru Talachina Anta Mātramē Nīvu</div>
+        <div class="lyric-line">Antarantamu Lēnchi Chūḍa Piṇḍante Nippati Yannaṭlu</div>
+        <div class="section-label">Charanam 1</div>
+        <div class="lyric-line">Koluthuru Mimu Vaishṇavulu Kūrimito Vishnudani</div>
+        <div class="lyric-line">Palukuduru Mimu Vēdāntulu Para Brahmambanuchu</div>
+        <div class="lyric-line">Talaturu Mimu Shaivulu Tagina Bhaktulanu Shivudanuchu</div>
+        <div class="lyric-line">Alari Pogaduduru Kāpāliku Lādi Bhairavudanuchu</div>
+        <div class="section-label">Charanam 2</div>
+        <div class="lyric-line">Sari Nennuduru Shākteyu Shakti Rūpu Nēvanuchu</div>
+        <div class="lyric-line">Darisanamulu Mimu Nānā Vibhulanu Tālapula Koladulu Bhajiṅturu</div>
+        <div class="lyric-line">Sirula Mimu Nē Alpabuddhi Talachina Variki Alpambouduvu</div>
+        <div class="lyric-line">Garimala Mimu Nē Ghanamani Talachina Ghana Buddhlaku Ghanudavu</div>
+        <div class="section-label">Charanam 3</div>
+        <div class="lyric-line">Nee Valana Korāṭe Lēdu Mari Nīru Koladi Tāmeravu</div>
+        <div class="lyric-line">Avala Bhāgiradhi dari Bāvula Ā Jalamē Ūrinaiyaṭlu</div>
+        <div class="lyric-line">Shrī Veṅkaṭapati Nīvaite Māmu Chekoni Vunna Daivamani</div>
+        <div class="lyric-line">Ēvalane Nī Sharaṇanēdanu Idiyē Paratattvamu Naku</div>
+      </div>
+
+      <div class="tab-content" id="enthamaathramuna-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">Oh Venkatapati, you are (<em>nīvu</em>) exactly (<em>anta mātramē</em>) as much (<em>entamātramuna</em>) as whoever (<em>evvaru</em>) thinks of you (<em>talachina</em>). When I observe sincerely, it is just like the size and quality of a pancake depending on the batter.</div>
+        <div class="section-label">Charanam 1</div>
+        <div class="meaning-line">The Vaishnavas worship you with reverence as Vishnu. The Vedic philosophers declare you are the Supreme Conscience. The Shaivas believe you are Shiva and the Kapalikas praise you as Adibhairava.</div>
+        <div class="section-label">Charanam 2</div>
+        <div class="meaning-line">The Shakteyas consider you the manifestation of supreme Shakti. People chant your praise in countless ways. Ignorant people assume you are insignificant; the wise recognise your infinite greatness.</div>
+        <div class="section-label">Charanam 3</div>
+        <div class="meaning-line">You are like the vast pool that spreads the lotus flowers. It is only the water of the Bhāgiradhi river that seeps into the wells by her side. Oh Shrī Venkatapati, you are our protector. I surrender at your feet — this is transcendental bliss for me.</div>
+        <div class="credit">Source: HinduDevotionalBlog.com</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       9. OM NAMO NARAYANA
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="omnamonarayana">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">9</div>
+      <div class="song-title-block">
+        <div class="song-title">Om Namo Nārāyaṇa (with Viruttham)</div>
+        <div class="song-meta">Karnaranjani · Khanda Chapu · Ambujam Krishna · Tamil</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Karnaranjani</div>
+        <div class="raga-pill"><span>Talam:</span> Khanda Chapu (5 beats)</div>
+        <div class="raga-pill"><span>Language:</span> Tamil</div>
+        <div class="raga-pill"><span>Deity:</span> Guruvayurappan (Lord Vishnu)</div>
+      </div>
+      <div class="info-box">Preceded by a <strong>Viruttham</strong> — Thirumangai Azhwar's verse <em>"Kulam Tharum Selvam Thandhidum"</em> set freely in ragam without talam. The verse extols Nārāyaṇa's name as bestowing all wealth and blessings surpassing even a mother's grace. <em>Karnaranjani</em> means "that which pleases the ear" — an intimate, lyrical ragam ideally suited to this devotional warmth.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'omnamonarayana','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'omnamonarayana','meaning')">Meaning</div>
+      </div>
+
+      <div class="tab-content active" id="omnamonarayana-lyrics">
+        <div class="section-label">Viruttham (Thirumangai Azhwar)</div>
+        <div class="lyric-line"><em>Kulam tharum selvam thandhidum…</em> (sung freely in ragam before the krithi)</div>
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Om namo Nārāyaṇa endru ullam uruga uraiththidennāvē</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Kshēmam nalgum Shrī Guruvāyurappan nāmam allal uyya vazhi vēru</div>
+        <div class="section-label">Charanam</div>
+        <div class="lyric-line">Pān isaikkum pavazha vāi idazhum</div>
+        <div class="lyric-line">Paṅkaja kaṇṇazhagum kuṇḍalam thigazha sēviyum</div>
+        <div class="lyric-line">Vēn shaṅgam thigiṛi olir karaṅgalum than thulabham thavazh mārbil</div>
+        <div class="lyric-line">Minnum muppuri noolum</div>
+        <div class="section-label">Madhyama Kalam</div>
+        <div class="lyric-line">Kiṇikiṇi idaiyarpa kazhal silambu kala kalakka</div>
+        <div class="lyric-line">Maṇṇidai Vaikuntathu appan tharum kākshi thanaik</div>
+        <div class="lyric-line">Kaṇḍa thoru kalippoḍu pān pādi koṇḍādi</div>
+        <div class="lyric-line">Karam kuviththu mey silirthu en thisayum ethir olikka</div>
+      </div>
+
+      <div class="tab-content" id="omnamonarayana-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">With a melting heart (<em>ullam uruga</em>), please say (<em>uraiththidennāvē</em>) "Om Namo Nārāyaṇa."</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">What is the method of successful living (<em>uyya vazhi</em>) other than the name (<em>nāmam</em>) of the Lord of Guruvāyur who bestows wellbeing (<em>kshēmam</em>)?</div>
+        <div class="section-label">Charanam</div>
+        <div class="meaning-line">The coral-like lips that sing songs; the beautiful lotus-like eyes; the ears decorated with ear studs; the hands shining with the white conch and the wheel; the sacred thread shining in the chest adorned with Thulasi leaves.</div>
+        <div class="section-label">Madhyama Kalam</div>
+        <div class="meaning-line">With the sight of the stately presence of the Lord of Vaikunta on this earth; with a bell-decorated waist belt, anklets making a tinkling sound; with exuberant joy — singing, celebrating, with folded hands, body in ecstasy, all eight directions resonating with praise.</div>
+        <div class="credit">Source: P.R. Ramachander translation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       10. KANDA NAAL MUDHALAI
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="kandanaal">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">10</div>
+      <div class="song-title-block">
+        <div class="song-title">Kaṇḍa Nāl Mudhalai</div>
+        <div class="song-meta">Madhuvanthi · Adi Talam · N.S. Chidambaram · Tamil</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Madhuvanthi</div>
+        <div class="raga-pill"><span>Talam:</span> Adi (8 beats)</div>
+        <div class="raga-pill"><span>Language:</span> Tamil</div>
+        <div class="raga-pill"><span>Tradition:</span> Nāyika — Shringaara Bhakti</div>
+      </div>
+      <div class="info-box">A composition in the <em>nāyika</em> tradition — a heroine confides to her friend about falling in love at first sight with Lord Muruga. <em>Madhuvanthi</em> (literally "flowing like honey") is a ragam of sweet yearning — its distinctive vakra (zigzag) phrases create a wistful, intoxicating quality perfectly matched to the romantic mood of the lyric.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'kandanaal','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'kandanaal','meaning')">Meaning</div>
+      </div>
+
+      <div class="tab-content active" id="kandanaal-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Kaṇḍa nāl mudhal kadhal peruguthaḍi</div>
+        <div class="lyric-line">Kaiyinil vēl piḍitha karuṇai Shiva Bālanai</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Vandu isai pādum yēzhil vasantha pooṅkāvil</div>
+        <div class="lyric-line">Vandhe sugam thantha Kānthanai, yen Kānthanai</div>
+        <div class="section-label">Charanam</div>
+        <div class="lyric-line">Nīla mayil thanai nenjamum marakkavillai</div>
+        <div class="lyric-line">Nēsamudan kalantha pāsamum maraya villai</div>
+        <div class="lyric-line">Kola kumaran mana kōyilil nirainthu viṭṭan</div>
+        <div class="lyric-line">Kuru nagai thanai kaṭṭi naru malar sūṭi viṭṭaan</div>
+      </div>
+
+      <div class="tab-content" id="kandanaal-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">From the day I saw (<em>kaṇḍa nāl mudhal</em>) the son of Lord Shiva who is merciful and holds the Vel, my love for him is ebbing out (<em>kadhal peruguthaḍi</em>).</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">In the pretty garden (<em>vasantha pooṅkāvil</em>) where the bees sing (<em>isai pādum</em>), the Kandha who came and gave me pleasure.</div>
+        <div class="section-label">Charanam</div>
+        <div class="meaning-line">My mind has not forgotten (<em>marakkavillai</em>) the blue peacock (<em>nīla mayil</em>). The affection mixed with love has not vanished (<em>maraya villai</em>). The beautiful Murugan has filled my mind, and he shows his slight smile as he adorns my hair with flowers.</div>
+        <div class="credit">Translated by P.R. Ramachander</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       11. KURAI ONDRUM ILLAI
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="kurai">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">11</div>
+      <div class="song-title-block">
+        <div class="song-title">Kurai Ondrum Illai</div>
+        <div class="song-meta">Ragamalika · Adi Talam · Sri Rajagopalachari · Tamil</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Ragamalika</div>
+        <div class="raga-pill"><span>Sections:</span> Shivaranjani → Kāpi → Sindhu Bhairavi</div>
+        <div class="raga-pill"><span>Talam:</span> Adi (8 beats)</div>
+        <div class="raga-pill"><span>Language:</span> Tamil</div>
+      </div>
+      <div class="info-box">Composed by C. Rajagopalachari ("Rajaji") — statesman, writer, and the last Governor-General of India — this is a rare great devotional song by a non-musician. Unlike most devotional songs that lament and petition, this song describes contentment. Rajaji does not ask for anything; he simply rests in the Lord's presence. Made famous by M.S. Subbulakshmi at the United Nations in 1969, set to music by Kadayanallur Venkataraman.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'kurai','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'kurai','meaning')">Meaning</div>
+        <div class="tab" onclick="showTab(this,'kurai','notation')">Notation</div>
+      </div>
+
+      <div class="tab-content active" id="kurai-lyrics">
+        <div class="section-label">Pallavi (Shivaranjani)</div>
+        <div class="lyric-line">Kurai ondrum illai maraimūrti KaṇṇA</div>
+        <div class="lyric-line">Kurai ondrum illai KaṇṇA · Kurai ondrum illai GōvindA</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Kaṇṇukku teriyāmal nirkkinrāi KaṇṇA</div>
+        <div class="lyric-line">Kaṇṇukku teriyāmal ninrālum enakku kurai ondrum illai maraimūrti KaṇṇA</div>
+        <div class="section-label">Charanam 1</div>
+        <div class="lyric-line">Vēṇḍiyadai tandiḍa VēṅkaṭēshaN enrirukka vēṇḍiyadu vērillai maraimūrti KaṇṇA</div>
+        <div class="lyric-line">MaṇivaṇṇA malaiappA GōvindA GōvindA</div>
+        <div class="section-label">Charanam 2 (Kāpi)</div>
+        <div class="lyric-line">Tiraiyin pin nirkinrāi KaṇṇA · unnai marai Ōdum jñāniyar maṭṭumē kāṇ pār</div>
+        <div class="lyric-line">Kurai ondrum enakkillai KaṇṇA enrālum kurai ondrum enakkillai</div>
+        <div class="section-label">Charanam 3</div>
+        <div class="lyric-line">Kunrin mēl kallāgi nirkkinra varadā kurai ondrum illai maraimūrti KaṇṇA</div>
+        <div class="section-label">Charanam 4 (Sindhu Bhairavi)</div>
+        <div class="lyric-line">KalināḷukkiranGi kallilē irangi nilaiyāga kōyilil nirkinrāi KēshavA</div>
+        <div class="lyric-line">Kurai ondrum illai marai mūrti KaṇṇA</div>
+        <div class="section-label">Charanam 5</div>
+        <div class="lyric-line">Yādum marukkāda malaiyappA un mārbil Ēdum tara nirkkum karuṇai kaḍalaNNai</div>
+        <div class="lyric-line">Enrum irundiḍa Ēdu kurai enakku ondrum kurai illai maraimūrti KaṇṇA</div>
+        <div class="lyric-line">MaṇivaṇṇA malaiappA GōvindA GōvindA GōvindA</div>
+      </div>
+
+      <div class="tab-content" id="kurai-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">I do not (<em>illai</em>) have any (<em>ondrum</em>) problem (<em>kurai</em>), O KaṇṇA — the Vedas (<em>marai</em>) personified (<em>mūrthi</em>)! I have no complaint, O GōvindA!</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">You are invisible (<em>kaṇṇukku teriyāmal</em>), O KaṇṇA! But even when you remain invisible, I do not have any problem.</div>
+        <div class="section-label">Charanam 1</div>
+        <div class="meaning-line">When there is Venkatesan to give us what we want, we shall not want for anything else. O MaṇivaṇṇA! O MalaiappA! O GōvindA!</div>
+        <div class="section-label">Charanam 2</div>
+        <div class="meaning-line">You are standing behind a screen, KaṇṇA. Only the wise men well-versed in the Vedas can "see" you. Still, I have no problem.</div>
+        <div class="section-label">Charanam 3</div>
+        <div class="meaning-line">You are standing like a stone on the hilltop, O VaradA. Still, I have no problem.</div>
+        <div class="section-label">Charanam 4</div>
+        <div class="meaning-line">Recognising this Kaliyuga, you have taken on this stone-form and are permanently here in this temple, O KēshavA.</div>
+        <div class="section-label">Charanam 5</div>
+        <div class="meaning-line">You do not refuse any request from your devotees. The ever-merciful Goddess Lakshmi (<em>karuṇai kaḍal aNNai</em>) is residing in your chest. In that situation, what deficiency can I have? I have no complaint. O MaṇivaṇṇA, MalaiappA, GōvindA!</div>
+        <div class="info-box"><strong>Note:</strong> This song is unusual in that the composer (Rajaji) does not lament or request special favours. He simply admires the everlasting grace of Lord Venkatesha of Tirupati. The words are commonplace, but the concept shines with crystal clarity — especially in melody.</div>
+        <div class="credit">Source: Shivkumar.org (meaning courtesy ChennaiOnline.com)</div>
+      </div>
+
+      <div class="tab-content" id="kurai-notation">
+        <div class="notation-block">Pallavi (Shivaranjani — Aro: S R2 G2 P D2 S | Ava: S D2 P G2 R2 S):
+g  G- g   ; G  G ;  G ; | g P -  g  p D - p | pgG ;  G ; ||
+Kurai on- rum  il-  lai  ma rai  mU-  - - rti  kaN-- - NA
+
+r  G - s  ; R  D ,  s  ; - sg | R ;  ; ; | s g r s  D P ||
+ku rai on- rum  il- lai-  - kaN  Naa  - - - - - - -
+
+Charanam 5 (Sindhu Bhairavi):
+p  D - s  ; R  gpg-  g  rS, - rd | S ;  S ; | ;  ;  ; ; ||
+ku rai on- rum  il- - lai-  -  -   gO   vin  dA - -  - -
+</div>
+        <div class="credit">Notation source: Shivkumar.org</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       12. MADHAVA MAMAVA
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="madhava">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">12</div>
+      <div class="song-title-block">
+        <div class="song-title">Mādhava Māmava (Lāli)</div>
+        <div class="song-meta">Neelambari · Adi Talam · Narayana Theerthar · Sanskrit</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Neelambari (29th mela janyam)</div>
+        <div class="raga-pill"><span>Talam:</span> Adi (8 beats)</div>
+        <div class="raga-pill"><span>Aro:</span> S R2 G3 M1 P D2 P N3 S</div>
+        <div class="raga-pill"><span>Ava:</span> S N3 P M1 G3 R2 G3 S</div>
+        <div class="raga-pill"><span>Language:</span> Sanskrit</div>
+      </div>
+      <div class="info-box"><em>Neelambari</em> is the quintessential lullaby ragam of Carnatic music — its oscillating, rocking melodic contour evokes moonlit nights and deep peace. Even the word <em>Lāli</em> (lullaby) appears in the song's subtitle. Narayana Theerthar was an 18th-century Vaishnava saint-composer whose works carry the emotional directness of pure devotion.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'madhava','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'madhava','meaning')">Meaning</div>
+      </div>
+
+      <div class="tab-content active" id="madhava-lyrics">
+        <div class="section-label">Pallavi</div>
+        <div class="lyric-line">Mādhava māmava dēva Kṛshṇa</div>
+        <div class="lyric-line">Yādava Kṛshṇa Yadukula Kṛshṇa</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="lyric-line">Sādhu janādhāra sarvabhāva</div>
+        <div class="section-label">Caraṇam 1</div>
+        <div class="lyric-line">Ambuja lōcana kambu shubha grīva bimbādhara candra bimbānana</div>
+        <div class="lyric-line">Cāmpēya nāsāgra lagna sumauktika shārada candra janita madana</div>
+        <div class="section-label">Caraṇam 2</div>
+        <div class="lyric-line">Āgama giri shikharodita satya chidadvaya lakṣaṇa sukha bhānō</div>
+        <div class="lyric-line">Bhōgi kuḷōttama bhōga shayana dugdha-sāgarajā lakṣaṇādhya tanō</div>
+        <div class="section-label">Caraṇam 3</div>
+        <div class="lyric-line">Indirayā saha sundara Kṛshṇa purandarādi vandya padakamala</div>
+        <div class="lyric-line">Nandanandana yōgivarya dhurandhara Nārāyaṇa tīrtha mativihāra</div>
+      </div>
+
+      <div class="tab-content" id="madhava-meaning">
+        <div class="section-label">Pallavi</div>
+        <div class="meaning-line">O husband of Lakshmi (<em>Mādhava</em>)! Protect me (<em>māmava</em>). O Lord Krishna! O Scion of the Yadu dynasty!</div>
+        <div class="section-label">Anupallavi</div>
+        <div class="meaning-line">O Support of good people (<em>Sādhu janādhāra</em>)! O Embodiment of all creation (<em>sarvabhāva</em>)!</div>
+        <div class="section-label">Caraṇam 1</div>
+        <div class="meaning-line">O Lotus-eyed one! O one with an auspicious conch-like neck! O one with lips like a bimba fruit and a face like the orb of the moon! O one with a pearl fixed at the tip of the nose that resembles the Champaka flower! O one (pleasing) like the autumnal moon! O father of Manmatha!</div>
+        <div class="section-label">Caraṇam 2</div>
+        <div class="meaning-line">O Sun rising atop the hill of the Vedas, embodying existence, awareness, and bliss! O one reclining on the hood of the greatest of serpents! O one whose body is endowed with the mark of Lakshmi, the daughter of the Milk Ocean!</div>
+        <div class="section-label">Caraṇam 3</div>
+        <div class="meaning-line">O handsome Krishna, along with Lakshmi! O one whose lotus-feet are saluted by Indra and the Devas! O Child of Nanda! O foremost among the best of Yogis! O one sporting in the mind of Nārāyaṇa Tīrtha!</div>
+        <div class="credit">Source: karnatik.com; meaning by Rajani Arjun Shankar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       13. RAGATHIL SIRANDHA RAGAM
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="ragathil">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">13</div>
+      <div class="song-title-block">
+        <div class="song-title">Rāgathil Sirandha Rāgam Edhū?</div>
+        <div class="song-meta">Ragamalika · Adi Talam · Kadaloor Subramaniam · Tamil</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Ragamalika</div>
+        <div class="raga-pill"><span>Talam:</span> Adi (8 beats)</div>
+        <div class="raga-pill"><span>Language:</span> Tamil</div>
+        <div class="raga-pill"><span>Ragams featured:</span> Kalyani, Khambhoji, Thodi, Nattai Kurinji, Simhendra Madhyamam, Shankarabharanam, Saaveri, Kaapi, Shanmugapriya, Neelambari, Attana, Bhairavi, Dhanyasi, Darbari, Saranga, Bhoopala, Kharaharapriya, Kamavardhini, Hindolam, Deva Manohari, Deva Gandhari, Kannada, Maya Malava Gowla, Vijayanagari, Vasantha, Malaya Marutha, Mohanam, Hamsanadha, Hamsa Dwani, Aarabhi, Bilahari, Baageswari, Shyama, Sindhu Bhairavi, Madhyamavathi</div>
+      </div>
+      <div class="info-box">A rare and delightful composition that asks "Which ragam is the greatest?" and proceeds to describe over 30 ragams across its verses — each described by its emotional character in the lyrics, and then demonstrated live as the music shifts into that very ragam. A guided tour through the Carnatic ragam system set to music.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'ragathil','lyrics')">Lyrics &amp; Meaning</div>
+      </div>
+
+      <div class="tab-content active" id="ragathil-lyrics">
+        <div class="section-label">Pallavi (Question)</div>
+        <div class="lyric-line">Rāgathil Sirandha Rāgamedhu — Kalyāṇiyā, Khambōjiyā?</div>
+        <div class="meaning-line"><em>Which is the best among Ragams? Is it Kalyani or Khamboji?</em></div>
+        <hr class="divider">
+        <div class="section-label">Verse 2</div>
+        <div class="lyric-line">Agathai kulirvikkum azhagāna Thōdiyā, āttathirkku ugandha Nattai Kurinjiyā</div>
+        <div class="meaning-line"><em>Is it Thodi which cools the mind, or Nattai Kurinji suitable for dance?</em></div>
+        <hr class="divider">
+        <div class="section-label">Verse 3</div>
+        <div class="lyric-line">Chinthai kulirvikkum Simhendra Madhyamamā, Santōshathai tharum Shankarabharaṇamā</div>
+        <div class="lyric-line">Cauvery pōal ōdum Sāveriyā, mana kalaippai nīkka valla Kāppiyā</div>
+        <div class="meaning-line"><em>Simhendra Madhyamam which cools thoughts, or Shankarabharanam which leads to joy, or Saaveri like the Cauvery river, or Kaapi which removes tiredness of mind?</em></div>
+        <hr class="divider">
+        <div class="section-label">Verse 4</div>
+        <div class="lyric-line">Paṇṇ isaithu pāda Shanmuga Priyavā, Pāduthu uranga seyyum Nīlambariyā</div>
+        <div class="lyric-line">Adhikaramai pāda Aṭṭaṇavā, Akhilam yellam mayakkum Ananda Bhairaviyā</div>
+        <div class="meaning-line"><em>Shanmugapriya which inspires song, or Neelambari which makes you sleep, or Attana which is sung with authority, or Bhairavi which can please the entire world?</em></div>
+        <hr class="divider">
+        <div class="section-label">Verse 5</div>
+        <div class="lyric-line">Thapam akala oru Dhanyāsiyā, dhaṛaniyai kākka nalla Darbarā</div>
+        <div class="lyric-line">Sarasa salāpatthirkke Sārangavā, Shyāmalanai ezhuppa Bhoopālamā</div>
+        <div class="meaning-line"><em>Dhanyasi to drive away worries, Darbari to protect the world, Saranga for love-talk, or Bhoopala to wake up Lord Krishna?</em></div>
+        <hr class="divider">
+        <div class="section-label">Verse 6–8 (summary)</div>
+        <div class="meaning-line">Verses 6 through 8 continue through Kharaharapriya, Kamavardhini, Hindolam, Deva Manohari, Kannada (sweeter than honey), Maya Malava Gowla, Mohanam, Hamsanadha, Aarabhi, Bilahari, Baageswari, Sindhu Bhairavi, and Madhyamavathi — each described by its distinctive character.</div>
+        <hr class="divider">
+        <div class="section-label">Final Verse (Answer)</div>
+        <div class="lyric-line">Sruthi shuddhamagavum swara shuddhagamagavum sukha bhāvathudan</div>
+        <div class="lyric-line">Pādum Rāgamē Shiranthathu</div>
+        <div class="meaning-line"><em>That Rāga sung with impeccable shruti (pitch), with proper swara (intonation), and with pleasant Bhava — that is the greatest.</em></div>
+        <div class="credit">Translated by P.R. Ramachander</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       14. THILLANA
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="thillana">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">14</div>
+      <div class="song-title-block">
+        <div class="song-title">Thillāna (Pahāḍi)</div>
+        <div class="song-meta">Pahaadi · Misra Chapu · Lalgudi Jayaraman · Tamil</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Pahāḍi (29th mela janyam)</div>
+        <div class="raga-pill"><span>Talam:</span> Misra Chapu (7 beats; some sources Adi)</div>
+        <div class="raga-pill"><span>Aro:</span> S R2 G3 P D2 P D2 S</div>
+        <div class="raga-pill"><span>Ava:</span> N3 D2 P G3 M1 G3 R2 S N3 D2 P D2 S</div>
+        <div class="raga-pill"><span>Language:</span> Tamil</div>
+      </div>
+      <div class="info-box">A <strong>Thillana</strong> is built primarily of abstract rhythmic syllables (<em>jathi</em> — dhīm, tadhīm, takadhīm…) rather than devotional lyrics. It is the concert's exhilarating sprint — showcasing speed, rhythmic precision, and the final dialogue between voice and mridangam. Pahāḍi is a Hindustani-inflected ragam with a bright, folk-like character. Composed by the legendary violinist Lalgudi G. Jayaraman.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'thillana','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'thillana','meaning')">Meaning</div>
+      </div>
+
+      <div class="tab-content active" id="thillana-lyrics">
+        <div class="section-label">Pallavi (Jathi)</div>
+        <div class="lyric-line">Dhīm tadhīm dhiranā taka dhīm tadhīm tana dhīm dhīm takiṭa tana</div>
+        <div class="section-label">Anupallavi (Jathi)</div>
+        <div class="lyric-line">Dhīm tajhaṇu dhīm takajhaṇu tōm jhaṇu</div>
+        <div class="lyric-line">Tattit-taḷāngu tarikiṭa takajhaṇu tōm</div>
+        <div class="lyric-line">TittaḷAngu tarikiṭa takajhaṇu tōm taḷāngu tarikiṭa takajhaṇu</div>
+        <div class="section-label">Charanam (Sahitya — devotional lyrics)</div>
+        <div class="lyric-line">Enadannai tandai ena nīyē manamirangi Ēzhai enakkaruḷvāyē mana</div>
+        <div class="lyric-line">Mōhananē mayil vāhananē vanakkuratti magizhum maṇaāḷa GuhanE</div>
+        <div class="section-label">Sholkattu (Rhythmic finale)</div>
+        <div class="lyric-line">Tōm tadhīm taḍhim tattōm tadhīm takatōm tadhīm tadhīm takiṭa</div>
+        <div class="lyric-line">tarita jhaṇu takiṭa tajjham taka tajjham tarikiṭa tajham…</div>
+      </div>
+
+      <div class="tab-content" id="thillana-meaning">
+        <div class="section-label">Jathi sections</div>
+        <div class="meaning-line">The pallavi and anupallavi are pure rhythmic syllables (<em>jathi</em>) — they carry no literal meaning, but convey rhythmic energy, momentum, and the mathematical beauty of Carnatic talam. Listen for how the syllables suggest the shape of melodic phrases.</div>
+        <div class="section-label">Charanam (devotional meaning)</div>
+        <div class="meaning-line">You who are my father and mother — please take pity on this humble one and bless me. O handsome one! O one with the peacock as vehicle (<em>mayil vāhana</em>)! O one who delights Vanakkuratti! O beautiful bridegroom Guha!</div>
+        <div class="info-box"><strong>About Pahāḍi:</strong> This ragam is shared between Carnatic and Hindustani music (where it is also called Pahāḍi). Its ascending movement skips the Gāndhāra and Niṣhāda, giving it a bright, open, folk-influenced character — very different from the more complex janya ragams that preceded it in this concert.</div>
+        <div class="credit">Source: karnatik.com</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       15. THIRUPPUGAZH
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="thiruppugazh">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">15</div>
+      <div class="song-title-block">
+        <div class="song-title">Thiruppugazh 998 — Nāliranḍidhazhālē</div>
+        <div class="song-meta">Durga · Anga Talam · St. Arunagirinathar · Tamil</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Durga</div>
+        <div class="raga-pill"><span>Talam:</span> Anga (asymmetric)</div>
+        <div class="raga-pill"><span>Language:</span> Tamil</div>
+        <div class="raga-pill"><span>Song #:</span> 998 of 1,300</div>
+        <div class="raga-pill"><span>Category:</span> Pothu (common / general)</div>
+      </div>
+      <div class="info-box">The <em>Thiruppugazh</em> of St. Arunagirinathar (15th century) are celebrated for their complex, asymmetric metres — each song has a unique rhythmic pattern. This particular verse (998) uniquely honours <strong>Devi</strong> rather than Lord Muruga — describing Goddess Pārvati / Durga / Abhirāmi through her many forms and attributes: the sacred chakras, the goddess Kāli, Mādhavi, Ambika, and Shivakāma Sundari.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'thiruppugazh','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'thiruppugazh','meaning')">Meaning</div>
+      </div>
+
+      <div class="tab-content active" id="thiruppugazh-lyrics">
+        <div class="section-label">Verse (Thaalam: Thaana thandana thaanaa…)</div>
+        <div class="lyric-line">Nāliraṇḍu idhazhālē kōliya ñālam uṇḍagam mēlē thān iḷa ñāyiṛu enrruṛu kōlā kālannum adhin mēlē</div>
+        <div class="lyric-line">Ñālam uṇḍa pirāṇā dhārannum yōga mandira mūlā dhāranun nādi ninra prabāvā kāranun naḍuvāga</div>
+        <div class="lyric-line">Mēl iruntha giriḍā pīḍamum nūl arintham aṇī māmāḍamum mēdhagum prabai kōḍā kōḍiyum iḍamāga</div>
+        <div class="lyric-line">Vīsi ninruḷa dhūpā dīpavi sāla maṇḍapa mīdhē yēṛiya vīra paṇḍida vīrā sāriya vinai dhīrāy</div>
+        <div class="lyric-line">Āla kandari mōḍā mōḍi kumāri pingalai nānā dhēsiya mōgi mangalai lōkā lōkiye vuyir pālum</div>
+        <div class="lyric-line">Āna sampramī mādhā mādhavi Ādhi yambigai ñādhā vānavar āḍa manṛinil āḍā nādiya abhirāmi</div>
+        <div class="lyric-line">Kāla shangari sīlā sīli tri sūli mandhra sabāshā bāshaṇi kāḷa kaṇḍiga pālī māliṇi kaliyāṇi</div>
+        <div class="lyric-line">Kāma dhandira līlā lōgiṇi vāma dhandira nūlāy vāḷ shiva kāma sundari vāzhvē dhēvargaḷ perumāḷē</div>
+      </div>
+
+      <div class="tab-content" id="thiruppugazh-meaning">
+        <div class="info-box">This verse describes Devi through the <em>Shiva Yoga</em> system of six energy centres (<em>ādhāras / chakras</em>) and addresses her with many of her most potent names and attributes. A brief summary follows.</div>
+        <div class="section-label">Opening lines</div>
+        <div class="meaning-line">At the Swādhishtāna chakra (six-petalled lotus) resides Brahma, radiant as the rising crimson sun. Above him at the Maṇipūraka, Lord Vishnu who sustains the world. At the heart-lotus (Anāhata), Rudra. The Lord who has taken all three as his dwelling place resides at the centre (ājñā chakra), his form radiant and majestic.</div>
+        <div class="section-label">Middle section</div>
+        <div class="meaning-line">Above all these energy centres, in your abode of infinite radiance with halls of incense and lamps, in the vast assembly of countless lights, O Vīra Paṇḍita, O heroic Guru — please resolve my karma and grant me liberation.</div>
+        <div class="section-label">Names of Devi (latter half)</div>
+        <div class="meaning-line">She who has a neck bearing poison (<em>Āla kandari</em>) — Durgā; the ageless one (<em>kumāri</em>); the golden one (<em>pingalai</em>); the auspicious one (<em>mangalai</em>); she who pervades all worlds (<em>lōkālōki</em>); she who danced with Natarāja in the cosmic hall (<em>abhirāmi</em>); destroyer of Time (<em>kāla shankari</em>); pure among the pure (<em>sīlā sīli</em>); holder of the trident (<em>trisūli</em>); she of mantric speech (<em>sabāshābāshaṇi</em>); she of the dark neck (<em>kāḷakaṇḍi</em>); she wearing garlands (<em>māliṇi</em>); the eternally auspicious one (<em>kaliyāṇi</em>). O Shivakāma Sundari — life of the Devas, O Lord of Lords!</div>
+        <div class="credit">Source: kaumaram.com; meaning by Sri Gopala Sundaram</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       16. THIRUPPAVAI
+  ════════════════════════════════════════════════════ -->
+  <div class="song" id="thiruppavai">
+    <div class="song-header" onclick="toggleSong(this)">
+      <div class="song-num">16</div>
+      <div class="song-title-block">
+        <div class="song-title">Thiruppavai — Oruthi Maganāy (25th Pāsuram)</div>
+        <div class="song-meta">Behag · Adi Talam · Āṇḍāl · Tamil</div>
+      </div>
+      <div class="song-toggle">▼</div>
+    </div>
+    <div class="song-body">
+      <div class="raga-info">
+        <div class="raga-pill"><span>Ragam:</span> Behag (29th mela janyam)</div>
+        <div class="raga-pill"><span>Talam:</span> Adi (8 beats)</div>
+        <div class="raga-pill"><span>Aro:</span> S G3 M1 P N3 D2 N3 S</div>
+        <div class="raga-pill"><span>Ava:</span> S N3 D2 P M2 G3 M1 G3 R2 S</div>
+        <div class="raga-pill"><span>Pāsuram:</span> 25 of 30</div>
+        <div class="raga-pill"><span>Composer:</span> Āṇḍāl / Kōdai / Nachiār</div>
+      </div>
+      <div class="info-box"><strong>Āṇḍāl</strong> (9th century CE) was the only woman among the 12 Āzhwār saints and is revered as the greatest woman devotee in the Vaishnava tradition. Her 30 verses (Thiruppavai) contain the cardinal principles of Vaishnava dharma. In these verses she assumes the guise of a cowherd girl performing the <em>Pāvai Nōmbu</em> vow to marry Lord Kṛshṇa and obtain his everlasting service. The 25th pāsuram recalls Krishna's miraculous birth.</div>
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(this,'thiruppavai','lyrics')">Lyrics</div>
+        <div class="tab" onclick="showTab(this,'thiruppavai','meaning')">Meaning</div>
+        <div class="tab" onclick="showTab(this,'thiruppavai','notation')">Notation</div>
+      </div>
+
+      <div class="tab-content active" id="thiruppavai-lyrics">
+        <div class="section-label">Pāsuram 25</div>
+        <div class="lyric-line">Oruththi makanāyp piṛandhu * Or iravil</div>
+        <div class="lyric-line">Oruththi makanāy oḷiththu vaḷara *</div>
+        <div class="lyric-line">Tharikkilān-āgi thān thīṅku ninainda *</div>
+        <div class="lyric-line">Karuththaip pizhaippiththu Kaṇcan vayiṛṛil *</div>
+        <div class="lyric-line">Neruppenna ninṛa NedumālE ! *</div>
+        <div class="lyric-line">Unnai aruth-thiththu vanthōm paṛai tharudhiyākil *</div>
+        <div class="lyric-line">Thiruththakka selvamum sēvakamum yām pāṭi *</div>
+        <div class="lyric-line">Varutha-mum thīrndhu magizhndhu ElOr empāvāy.</div>
+      </div>
+
+      <div class="tab-content" id="thiruppavai-meaning">
+        <div class="section-label">Line by line</div>
+        <table class="word-table">
+          <tr><td>Oruththi makanāyp piṛandhu * Or iravil</td><td>Some lady as her son, you were born — on one night</td></tr>
+          <tr><td>Oruththi makanāy oḷiththu vaḷara</td><td>As another lady's son, in hiding, you grew up</td></tr>
+          <tr><td>Tharikkilān-āgi thān thīṅku ninainda</td><td>(Kamsa) unable to withstand You, thinking of harm to you</td></tr>
+          <tr><td>Karuththaip pizhaippiththu Kaṇcan vayiṛṛil</td><td>His very intent you made useless — in Kamsa's belly</td></tr>
+          <tr><td>Neruppenna ninṛa NedumālE!</td><td>Like a tall fire standing — O Lord of all!</td></tr>
+          <tr><td>Unnai aruth-thiththu vanthōm paṛai tharudhiyākil</td><td>Begging (we have come) — to see if you will give us emancipation</td></tr>
+          <tr><td>Thiruththakka selvamum sēvakamum yām pāṭi</td><td>To match Lakshmi's beauty and service — we sing</td></tr>
+          <tr><td>Varutha-mum thīrndhu magizhndhu ElOr empāvāy</td><td>Our sorrows free of, being happy — come, let us do the Pāvai vow</td></tr>
+        </table>
+        <div class="section-label">Overall meaning</div>
+        <div class="meaning-line">You were born as the son of Devaki on one night, and on the same night became the hidden son of Yashoda. Kamsa, who could not bear your existence and planned your destruction, found his very intents made useless. Like a tall blazing fire you stand, O Lord. We have come begging to you. We sing to match Lakshmi's grace and service. Please rid us of sorrows and give us joy — come, let us all do the Pāvai penance together.</div>
+        <div class="credit">Source: Shivkumar.org; meaning courtesy ibiblio.org/sripedia</div>
+      </div>
+
+      <div class="tab-content" id="thiruppavai-notation">
+        <div class="notation-block">Pāsuram opening:
+; , nr s n – D m d p  p  pm - g M | G ;  ;  ;  ;  ;  gm pn ||
+O  ru  thi  ma  ka – nay-  -  pi Ran  thu  *
+
+sS  -  n  s  g  -  M  P  P  , n  D | S ;  ;  rs nd pm gm pn ||
+o   ruthi  ma  kanaay  o  Li  thu  -  va  La- - -  ra * -  -
+
+dS  -  nr  s  n – D  m d p  p  pm - g M | G ;  ;  ;  gmpn ds , - rgmg r ||
+O   ru  thi  ma  ka – nay-  -  pi Ran  thu  *  - -  Or- I  ra- vil  -
+</div>
+        <div class="credit">Notation source: Shivkumar.org (uploaded file)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Lyrics compiled from shivkumar.org, karnatik.com, kaumaram.com, sapthaswaras.blogspot.com, and P.R. Ramachander translations.<br>
+    Content is for personal, non-commercial use at this concert.
+  </div>
+</div>
+
+<script>
+function toggleSong(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.song-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
+function showTab(tabEl, songId, tabName) {
+  // deactivate all tabs in this song
+  const song = tabEl.closest('.song-body');
+  song.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  song.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  // activate selected
+  tabEl.classList.add('active');
+  const content = document.getElementById(songId + '-' + tabName);
+  if (content) content.classList.add('active');
+}
+
+// Open song if navigated to via anchor
+window.addEventListener('load', () => {
+  const hash = window.location.hash;
+  if (hash) {
+    const target = document.querySelector(hash);
+    if (target) {
+      const header = target.querySelector('.song-header');
+      if (header) {
+        const body = header.nextElementSibling;
+        const toggle = header.querySelector('.song-toggle');
+        body.classList.add('open');
+        toggle.classList.add('open');
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
