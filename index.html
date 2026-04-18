@@ -250,8 +250,18 @@
     font-size: 10.5px; color: #fff; background: var(--gold);
     border-radius: 20px; padding: 2px 9px; white-space: nowrap;
     align-self: flex-start; margin-top: 3px;
+    display: none;
   }
   .dur.main { background: var(--rust); }
+  .dur.visible { display: inline-block; }
+  .dur-toggle {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11.5px; color: var(--muted); cursor: pointer;
+    border: 0.5px solid var(--border); border-radius: 20px;
+    padding: 3px 12px; margin-bottom: 1rem; background: var(--bg);
+    user-select: none; transition: background 0.2s;
+  }
+  .dur-toggle:hover { background: var(--gold-pale); }
   .tl-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 5px; padding-bottom: 6px; }
   .tl-desc strong { color: var(--rust); font-weight: 500; }
   .badge-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; padding-bottom: 12px; }
@@ -514,7 +524,10 @@
   </div>
 
   <!-- PROGRAMME -->
-  <h2 class="sec-title" id="programme">Tonight's programme <span style="font-size:16px; font-weight:300; font-family:'Outfit',sans-serif;">(approx. 3 hours)</span></h2>
+  <h2 class="sec-title" id="programme">Tonight's programme</h2>
+  <div class="dur-toggle" id="durToggle" onclick="toggleDurations()">
+    <span id="durToggleIcon">⏱</span> <span id="durToggleText">Show approximate durations</span>
+  </div>
   <p style="font-size:12.5px; color:var(--muted); margin-bottom:1.2rem; line-height:1.7;">Tap <strong style="color:var(--rust)">Lyrics</strong> on any piece to open its lyrics in a new tab.</p>
 
   <div class="timeline">
@@ -976,5 +989,16 @@
 
 </div><!-- end page -->
 
+<script>
+function toggleDurations() {
+  const durs = document.querySelectorAll('.dur');
+  const btn = document.getElementById('durToggleText');
+  const icon = document.getElementById('durToggleIcon');
+  const showing = durs[0].classList.contains('visible');
+  durs.forEach(d => d.classList.toggle('visible', !showing));
+  btn.textContent = showing ? 'Show approximate durations' : 'Hide durations';
+  icon.textContent = showing ? '⏱' : '✕';
+}
+</script>
 </body>
 </html>

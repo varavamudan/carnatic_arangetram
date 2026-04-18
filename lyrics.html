@@ -36,12 +36,12 @@
 
   /* SONG CARD */
   .song{background:var(--card);border:0.5px solid var(--border);border-radius:12px;margin-bottom:2rem;overflow:hidden;scroll-margin-top:70px;width:100%;}
-  .song-header{background:var(--gold-pale);padding:1rem 1.2rem;border-bottom:0.5px solid var(--border);cursor:pointer;display:flex;align-items:flex-start;gap:12px;}
-  .song-num{font-size:11px;font-weight:500;color:var(--gold);min-width:22px;padding-top:4px;}
-  .song-title-block{flex:1;}
-  .song-title{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,4vw,22px);font-weight:400;color:var(--rust);line-height:1.2;}
-  .song-meta{font-size:12px;color:var(--muted);margin-top:3px;}
-  .song-toggle{font-size:18px;color:var(--gold);align-self:center;transition:transform 0.3s;flex-shrink:0;}
+  .song-header{background:var(--gold-pale);padding:1rem 1.2rem;border-bottom:0.5px solid var(--border);cursor:pointer;display:flex;align-items:flex-start;gap:12px;width:100%;min-width:0;}
+  .song-num{font-size:11px;font-weight:500;color:var(--gold);min-width:22px;padding-top:4px;flex-shrink:0;}
+  .song-title-block{flex:1;min-width:0;overflow:hidden;}
+  .song-title{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,4vw,22px);font-weight:400;color:var(--rust);line-height:1.2;word-break:break-word;}
+  .song-meta{font-size:12px;color:var(--muted);margin-top:3px;word-break:break-word;}
+  .song-toggle{font-size:18px;color:var(--gold);align-self:center;transition:transform 0.3s;flex-shrink:0;width:20px;text-align:center;}
   .song-toggle.open{transform:rotate(180deg);}
 
   .song-body{padding:1.2rem;display:none;}
